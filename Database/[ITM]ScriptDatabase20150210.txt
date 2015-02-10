@@ -1,0 +1,39 @@
+﻿เป็น Script สำหรับสร้างตารางข้อมูลสมาชิก ประกอบไปด้วย 3 ตาราง
+1. user_detail เก็บข้อมูลของผู้ใช้งาน
+2. status สถานะของผู้ใช้งาน
+3. role บทบาทของผู้ใช้งาน
+
+//ขั้นแรก สร้าง Database ก่อน
+CREATE DATABASE itm_distance;
+//จากนั้นเอาเมาส์ชี้ที่ Database ก้อน itm_distance แล้ว Execute Arbitrary SQL queries. (สัญลักณ์ แว่นขยาย)
+CREATE TABLE	role	(	id	serial	NOT NULL	,
+			name	character varying(128)		,
+			CONSTRAINT	pk_role	PRIMARY KEY	(id)
+		);				
+CREATE TABLE	status	(	id	serial	NOT NULL	,
+			name	character varying(128)		,
+			CONSTRAINT	pk_status	PRIMARY KEY	(id)
+		);				
+CREATE TABLE	user_detail	(	id	serial	NOT NULL	,
+			username	character varying(128)		,
+			password	character varying(128)		,
+			firstname	character varying(128)		,
+			lastname	character varying(128)		,
+			nickname	character varying(64)		,
+			picture	character varying(255)		,
+			email	character varying(32)		,
+			phone	character varying(64)		,
+			role	integer		,
+			status	integer		,
+			CONSTRAINT	pk_user_detail	PRIMARY KEY	(id)
+		);				
+INSERT INTO	role	(	name	)								
+	VALUES	(	'Admin'	)	,							
+		(	'User'	);								
+INSERT INTO	status	(	name	)								
+	VALUES	(	'Active'	)	,							
+		(	'Inactive'	);								
+INSERT INTO	user_detail	(	username,	password,	firstname,	lastname,	nickname,	email,	phone,	role,	status	)
+	VALUES	(	'paspond',	'123456',	'Perapong',	'Soonketboon',	'Pond',	'zodiac5432@gmail.com',	'0867853920',	2,	1	),
+		(	'pasoom',	'123456',	'Metis',	'Rattanachai',	'Oom',	'hunjii4ni@gmail.com',	'0824802535',	1,	1	);
+
