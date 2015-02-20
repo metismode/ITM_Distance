@@ -10,6 +10,7 @@ namespace Distance.MVC
         {
 
             bundles.Add(new ScriptBundle("~/script").Include(
+
                      "~/Scripts/JS/bootstrap.js",
                      "~/Scripts/JS/moment.js",
                      "~/Scripts/JS/jquery-2.1.3.min.js",
@@ -23,7 +24,10 @@ namespace Distance.MVC
             bundles.Add(new StyleBundle("~/css").Include(
 
 
-                      "~/Content/CSS/bootstrap.css",
+                      //"~/Content/CSS/bootstrap_office.css",
+                      //"~/Content/CSS/bootstrap.min.css", ///CSS new //bootswatch.com/cosmo/
+                      "~/Content/CSS/bootstrap.css", ///CSS new //bootswatch.com/flatly/
+                      "~/Content/CSS/DXbootstrap.css", ///CSS new DX
                       "~/Content/CSS/bootstrap-responsive.css",
                       "~/Content/CSS/bootstrapValidator.css",
                       "~/Content/CSS/bootstrap-select.css",

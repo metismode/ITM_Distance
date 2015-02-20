@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,10 +11,90 @@ namespace Distance.MVC.Controllers
     {
         // GET: Auth
 
+        //static AuthController()
+        //{
+        //    Mapper.CreateMap<UserAuth, UserAuthModel>();
+        //    Mapper.CreateMap<UserAuthModel, UserAuth>();
+        //    Mapper.CreateMap<UserAuth, AuthModel>();
+        //    Mapper.CreateMap<AuthModel, UserAuth>();
+
+        //}
+
+        //public AuthController()
+        //    : this(new ServiceUserAuth())
+        //{
+
+        //}
+        //public AuthController(IServiceUserAuth authService)
+        //{
+        //    this.authService = authService;
+        //}
+
+
         public ActionResult Login()
+        {
+            //if (!ModelState.IsValid)
+            //return View(authModel);
+
+            //try
+            //{
+            //    var userData = authService.GetUserByUsername(authModel.Username);
+
+            //    if (userData == null)
+            //    {
+            //        ModelState.AddModelError(string.Empty, "Username or Password is wrong");
+            //        ViewBag.SigninStatusLog = "Fail";
+            //        ViewBag.SigninMessageLog = "Username not found.";
+            //        ViewBag.SigninUserNameLog = authModel.Username;
+
+            //        return View(authModel);
+            //    }
+            //    else
+            //    {
+
+            //        string pass = authModel.Passwordว
+            //        if (pass == userData.Password && authModel.Username == userData.Username)
+            //        {
+            //            Session["UserIdAuth"] = userData.UID;
+            //            Session["UsernameAuth"] = userData.Username;
+                       
+            //            ViewBag.SigninUserNameLog = authModel.Username;
+            //            ViewBag.SigninStatusLog = "Success";
+
+            //        }
+            //        else
+            //        {
+            //            ModelState.AddModelError(string.Empty, "Username or Password is wrong");
+            //            ViewBag.SigninStatusLog = "Fail";
+            //            ViewBag.SigninMessageLog = "Username or password is wrong.";
+            //            ViewBag.SigninUserNameLog = authModel.Username;
+
+            //            return View(authModel);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError(string.Empty, "เกิดข้อผิดพลาดจากระบบ กรุณาลองใหม่ในภายหลัง");
+            //    ViewBag.SigninStatusLog = "Fail";
+            //    ViewBag.SigninMessageLog = ex.Message;
+            //    ViewBag.SigninUserNameLog = authModel.Username;
+
+            //    throw new Exception("เกิดข้อผิดพลาดจากระบบ กรุณาลองใหม่ในภายหลัง");
+
+            //}
+
+            return RedirectToAction("Home");
+        }
+        public ActionResult Home()
         {
             return View();
         }
 
+        public ActionResult NotAuthorized()
+        {
+
+            return View();
+        }
     }
 }

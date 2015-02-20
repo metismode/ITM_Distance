@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace Distance.MVC.Models
+{
+    public class AuthModel
+    {
+        [Required, MinLength(4)]
+        public string Username { get; set; }
+        [Required, DataType(DataType.Password)]
+        public string Password { get; set; }
+
+    }
+}
