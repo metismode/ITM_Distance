@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee.cs" />
+    <Compile Include="EmployeeList.cs" />
     <Compile Include="UserAuth.cs" />
     <Compile Include="Dropdown\EXDDCompany.cs" />
     <Compile Include="EXEmployee.cs" />

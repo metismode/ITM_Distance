@@ -14,6 +14,16 @@ namespace Distance.Data.Npgsql
         //    get { return new DaoEmployee(); }
         //}
 
+        public IDaoUserAuth DaoUserAuth
+        {
+            get { return new DaoUserAuth(); }
+        }
+
+        public IDaoEmployee DaoEmployee
+        {
+            get { return new DaoEmployee(); }
+        }
+        
     }
     
 }

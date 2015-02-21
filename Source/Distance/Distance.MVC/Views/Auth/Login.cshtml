@@ -1,4 +1,4 @@
-﻿
+﻿@model Distance.MVC.Models.AuthModel
 @{
     ViewBag.Title = "Login";
 }
@@ -33,12 +33,12 @@
                 <strong class="text-success">Login :</strong>
                 <div class=" form-group">
                     <label class="sr-only" for="inputEmail">Username</label>
-                    <input type="text" class="form-control" id="Username" placeholder="username" />
+                    <input type="text" class="form-control" id="Username" placeholder="username" name="Username" />
                    
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="inputPassword">Password</label>
-                    <input type="text" class="form-control" id="Password" placeholder="password" />
+                    <input type="text" class="form-control" id="Password" placeholder="password" name="Password" />
                   
                 </div>
                 <div class="form-group">
