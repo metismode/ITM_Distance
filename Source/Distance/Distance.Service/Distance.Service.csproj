@@ -44,10 +44,12 @@
     <Compile Include="Dropdown\ServicesDD.cs" />
     <Compile Include="IServices\IServiceCompany.cs" />
     <Compile Include="IServices\IServiceEmployee.cs" />
+    <Compile Include="IServices\IServiceMaster.cs" />
     <Compile Include="IServices\IServiceUserAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceCompany.cs" />
     <Compile Include="Services\ServiceEmployee.cs" />
+    <Compile Include="Services\ServiceMaster.cs" />
     <Compile Include="Services\ServiceUserAuth.cs" />
   </ItemGroup>
   <ItemGroup>

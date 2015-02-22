@@ -14,6 +14,7 @@ namespace Distance.Data
         IDaoUserAuth DaoUserAuth { get; }
 
         IDaoEmployee DaoEmployee { get; }
-       
+
+        IDaoMaster DaoMaster { get; }
     }
 }

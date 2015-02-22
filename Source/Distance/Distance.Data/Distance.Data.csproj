@@ -50,10 +50,12 @@
     <Compile Include="DDDaoFactories.cs" />
     <Compile Include="IDaoEmployee.cs" />
     <Compile Include="IDaoFactory.cs" />
+    <Compile Include="IDaoMaster.cs" />
     <Compile Include="IDaoUserAuth.cs" />
     <Compile Include="IDDDaoFactory.cs" />
     <Compile Include="Npgsql\DaoEmployee.cs" />
     <Compile Include="Npgsql\DaoFactory.cs" />
+    <Compile Include="Npgsql\DaoMaster.cs" />
     <Compile Include="Npgsql\DaoUserAuth.cs" />
     <Compile Include="Npgsql\Db.cs" />
     <Compile Include="Npgsql\Dropdown\DDDaoFactory.cs" />

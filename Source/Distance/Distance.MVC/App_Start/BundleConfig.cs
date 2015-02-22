@@ -19,6 +19,7 @@ namespace Distance.MVC
                      "~/Scripts/JS/bootbox.js",
                      "~/Scripts/JS/bootstrap-tagsinput.js",
                      "~/Scripts/JS/fileinput.js"
+
                     ));
 
             bundles.Add(new StyleBundle("~/css").Include(
@@ -26,6 +27,7 @@ namespace Distance.MVC
 
                       //"~/Content/CSS/bootstrap_office.css",
                       //"~/Content/CSS/bootstrap.min.css", ///CSS new //bootswatch.com/cosmo/
+
                       "~/Content/CSS/bootstrap.css", ///CSS new //bootswatch.com/flatly/
                       "~/Content/CSS/DXbootstrap.css", ///CSS new DX
                       "~/Content/CSS/bootstrap-responsive.css",
@@ -34,7 +36,7 @@ namespace Distance.MVC
                       "~/Content/CSS/bootstrap-glyphicons.css",
                       "~/Content/CSS/bootstrap-tagsinput.css",
                       "~/Content/CSS/fileinput.css"
-
+                    
                       ));
 
 

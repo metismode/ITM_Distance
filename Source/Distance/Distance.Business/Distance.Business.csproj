@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeList.cs" />
+    <Compile Include="Master.cs" />
+    <Compile Include="MasterList.cs" />
     <Compile Include="UserAuth.cs" />
     <Compile Include="Dropdown\EXDDCompany.cs" />
     <Compile Include="EXEmployee.cs" />

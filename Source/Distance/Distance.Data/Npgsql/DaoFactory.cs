@@ -23,6 +23,11 @@ namespace Distance.Data.Npgsql
         {
             get { return new DaoEmployee(); }
         }
+
+        public IDaoMaster DaoMaster
+        {
+            get { return new DaoMaster(); }
+        }
         
     }
     
