@@ -1,6 +1,6 @@
 ﻿
 @model Distance.MVC.Models.EmployeeListModel
-@using DX.MVC
+
 
 @{
     ViewBag.Title = "Employee";
@@ -22,7 +22,7 @@
     <ui class="glyphicon glyphicon-chevron-right"></ui>
     <li class="active"><a href="@Url.Action("List", "Employee", null)"><i class="glyphicon glyphicon-list-alt"></i> List</a></li>
 </ul>
-
+<div>
 <div class="jumbotron">
     <form class="form-inline" method="post" id="EmpListForm">
         <table style="width:100%">
