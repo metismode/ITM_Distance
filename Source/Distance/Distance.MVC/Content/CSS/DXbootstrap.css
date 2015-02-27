@@ -359,14 +359,14 @@ fieldset[disabled] .btn-purple.active {
 }
 .pagination > li > a,
 .pagination > li > span {
-  background-color: #f8f8f8;
+  /*background-color: #f8f8f8;*/
   border: 1px solid #bebebe;
 }
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  background-color: #e0dfdf;
+  /*background-color: #e0dfdf;*/
 }
 .progress-bar.animate {
    width: 100%;

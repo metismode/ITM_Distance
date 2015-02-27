@@ -1,0 +1,65 @@
+﻿
+@model Distance.MVC.Models.EmployeeModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form class="form-horizontal" id="formemp">
+
+        @*@Html.Partial("FormEmployee")*@
+   
+
+    @model Distance.MVC.Models.EmployeeModel
+
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Name<span style="color:red; font-weight: bold;">*</span> :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Name", @maxlength = 30 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Code<span style="color:red; font-weight: bold;">*</span> :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Code", @maxlength = 10 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Detail :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Detail :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Detail :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Detail :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Detail :</label>
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Status, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>
+
+
+
+
+    <input type="submit" id="submitemp" style="display:none;" value="Submit" />
+</form>
+
+<script>
+    $(function () {
+        $(".modal-dialog").width("40%");
+
+       $('.selectpicker').selectpicker();
+
+    });
+</script>

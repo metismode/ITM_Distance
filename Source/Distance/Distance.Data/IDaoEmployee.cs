@@ -12,6 +12,8 @@ namespace Distance.Data
 
         List<Employee> GetEmployeeList(string sortExpresstion = "\"id\" ASC", string limitExpression = "", string offsetExpression = "0", string keyword = null, string filterData = null, int status = 0);
         int GetCount(string keyword = null, string filterData = null, int status = 0);
-
+        Employee GetEmployee(int id);
+        int InsertEmployee(Employee model);
+        int UpdateEmployee(Employee model);
     }
 }

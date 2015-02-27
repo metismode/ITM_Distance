@@ -34,5 +34,28 @@ namespace Distance.Service.Services
 
         }
 
+        public int InsertEmployee(Employee model)
+        {
+
+              int id = DaoEmployee.InsertEmployee(model);
+              return id;
+            
+        }
+
+        public int UpdateEmployee(Employee model) {
+
+            int id = DaoEmployee.UpdateEmployee(model);
+            return id;
+        
+        }
+
+        public Employee GetEmployee(int id)
+        {
+            var data = DaoEmployee.GetEmployee(id);
+
+            return data;
+        }
+
+
     }
 }

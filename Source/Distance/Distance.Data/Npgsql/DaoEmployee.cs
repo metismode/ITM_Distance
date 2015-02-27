@@ -38,6 +38,56 @@ namespace Distance.Data.Npgsql
             return db.Scalar(SQL).AsInt();
         }
 
+
+        public Employee GetEmployee(int id)
+        {
+            string sql = "select username,password,firstname,lastname,nickname,phone,status,email from user_detail WHERE id = " + id;
+
+            return db.Read(sql, Make).FirstOrDefault();
+        }
+
+        public int InsertEmployee(Employee model)
+        {
+
+            string sql = "INSERT INTO user_detail (" +
+
+                        " username," +
+                        " password," +
+                        " firstname, lastname," +
+                        " nickname, " +
+                        " phone," +
+                        " status," +
+                        " email )" +
+                       " VALUES (" +
+                       " @username," +
+                       " @password," +
+                       " @firstname ,@lastname," +
+                       " @nickname  ," +
+                       " @phone," +
+                       " @status," +
+                       " @email )";
+
+            return db.Insert(sql, Take(model)).AsInt();
+        }
+
+        public int UpdateEmployee(Employee model)
+        {
+            string sql = " UPDATE user_detail " +
+                        " SET  username=@username, " +
+                        "password=@password, " +
+                        "firstname=@firstname , " +
+                        "lastname=@lastname, " +
+                        "nickname=@nickname , " +
+                        "phone=@phone, " +
+                        "status=@status, " +
+                        "email=@email  " +
+                        " WHERE id =@id ";
+
+            return db.Update(sql, Take(model)).AsInt();
+        }
+
+
+
         static Func<IDataReader, Employee> MakeList = reader => new Employee
         {
             id = reader["id"].AsInt(),
@@ -50,6 +100,36 @@ namespace Distance.Data.Npgsql
             Status = reader["status"].AsInt()
            // StatusName = reader["status"].AsInt()
         };
+        static Func<IDataReader, Employee> Make = reader => new Employee
+        {
+            id = reader["id"].AsInt(),
+            UserName = reader["username"].AsString(),
+            Password = reader["password"].AsString(),
+            FirstName = reader["firstname"].AsString(),
+            LastName = reader["lastname"].AsString(),
+            NickName = reader["nickname"].AsString(),
+            Email = reader["email"].AsString(),
+            Phone = reader["phone"].AsString(),
+            Status = reader["status"].AsInt()
+            
+        };
+
+        object[] Take(Employee employee)
+        {
+            return new object[]{
+                new NpgsqlParameter("@id",DbType.Int32),employee.id,
+                new NpgsqlParameter("@username",DbType.String),employee.UserName,
+                new NpgsqlParameter("@password",DbType.String),employee.Password,                
+                new NpgsqlParameter("@firstname",DbType.String),employee.FirstName,
+                new NpgsqlParameter("@lastname",DbType.String),employee.LastName,
+                new NpgsqlParameter("@nickname",DbType.String),employee.NickName,
+                new NpgsqlParameter("@phone",DbType.String),employee.Phone,
+                new NpgsqlParameter("@status",DbType.String),employee.Status,
+                new NpgsqlParameter("@email",DbType.String),employee.Email
+            };
+        
+        }
+
 
     }
 

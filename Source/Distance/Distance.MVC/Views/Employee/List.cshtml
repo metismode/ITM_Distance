@@ -28,10 +28,8 @@
         <table style="width:100%">
             <tr style="background-color:#dddddd; height:50px;">
                 <td style="text-align:left">
+                    <button type="button" class="btn btn-success btn-xsm" title="Add Item" style="margin-left:7px" onclick="addClick()"><span class="glyphicon glyphicon-plus"></span> Add</button>
                     @*<button type="button" class="btn btn-danger btn-xsm" title="Delete" style="margin-left:7px" onclick="deleteClick()"> <span class="glyphicon glyphicon-trash"></span> Delete </button>*@
-
-                
-
                 </td>
 
                 <td style="text-align:right">
@@ -82,6 +80,7 @@
 
                 </thead>
                 <tbody>
+
                     @if (Model.List.Count != 0)
                     {
                         foreach (var list in Model.List)
@@ -123,7 +122,6 @@
             </table>
         </div>
 
-
         <div>@Html.Pager(Model)</div>
         <div>@Html.PagerText(Model, "record(s)")</div>
 
@@ -135,3 +133,39 @@
     </form>
 </div>
 
+@Html.Partial("_modalPopup")
+
+
+@section Scripts
+{
+<script type="text/javascript" src="@Url.Content("/Scripts/scriptModal.js")"></script>
+<script type="text/javascript">
+
+
+    
+
+    function addClick() {
+        
+        modalAction = "Add";
+        modalPopupFooter.show();
+        modalPopupTitle[0].innerHTML = "Add Company";
+        modalPopupBody[0].innerHTML = '';
+
+        var addempForm = $("<div>");
+        addempForm.load("@Url.Action("Add", "Employee")");
+        addempForm.appendTo(modalPopupBody[0]);
+        modalPopup.modal({
+            backdrop: 'static'
+        }).on("show.bs.modal", function (e) {
+
+            $("#myModal button.btn-success").text("Save");
+            $("#myModal button.btn-danger").text("Cancel");
+           
+        });
+        modalPopup.modal();
+
+    }
+
+</script>
+
+}
