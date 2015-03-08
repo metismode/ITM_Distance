@@ -1,0 +1,18 @@
+﻿@model Distance.MVC.Models.DropDownListModel
+
+@{
+    string multiText = Model.IsMultiselect ? "multiple" : "";
+    string disabledText = Model.Disabled ? "disabled" : "";
+
+    <select data-style="btn-success" class="@Model.CSSClass selectpicker" id="dx-dropdown" name="@Model.SelectedProperty" data-live-search="@Model.HasSearch.ToString().ToLower()" data-size="5" @multiText @disabledText>
+        <option value="">@Model.OptionalText</option>
+        @foreach (var value in Model.List)
+        {
+            <option value="@value.Value" data-subtext="@value.Description"
+                    @if (value.Value == Model.SelectedValue) { @: selected
+                                                        }>
+                @value.Display
+            </option>
+        }
+    </select>
+}

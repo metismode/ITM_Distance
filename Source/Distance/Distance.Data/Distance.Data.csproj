@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DaoFactories.cs" />
     <Compile Include="DDDaoFactories.cs" />
+    <Compile Include="Dropdown\IStatusDao.cs" />
     <Compile Include="IDaoEmployee.cs" />
     <Compile Include="IDaoFactory.cs" />
     <Compile Include="IDaoMaster.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Npgsql\DaoUserAuth.cs" />
     <Compile Include="Npgsql\Db.cs" />
     <Compile Include="Npgsql\Dropdown\DDDaoFactory.cs" />
+    <Compile Include="Npgsql\Dropdown\StatusDao.cs" />
     <Compile Include="Npgsql\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,9 +70,7 @@
       <Name>Distance.Business</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dropdown\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Distance.Data.Dropdown;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Distance.Data
 {
     public interface IDDDaoFactory
     {
-       // ICompanyDao CompanyDao { get; }
+        IStatusDao StatusDao { get; }
     }
 }

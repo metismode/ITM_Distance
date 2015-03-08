@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dropdown\DDStatus.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeList.cs" />
     <Compile Include="Master.cs" />

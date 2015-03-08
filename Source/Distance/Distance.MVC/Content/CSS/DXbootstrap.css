@@ -418,7 +418,7 @@ fieldset[disabled] .btn-purple.active {
 .nav-tabs > li.active > a:focus {
   background-color: #dddddd;
 }
-.navbar-default {
+/*.navbar-default {
   background-color: #46AD28;
   border-color: #46AD28;
 }
@@ -438,7 +438,7 @@ fieldset[disabled] .btn-purple.active {
 .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
   background-color: #358e1b;
-}
+}*/
 
 /*------------------------------------------------------------------
 [3. Subnavbar / .subnavbar]

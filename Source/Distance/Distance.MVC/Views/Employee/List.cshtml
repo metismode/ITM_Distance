@@ -17,6 +17,12 @@
 
 }
 
+<style>
+    table a {
+    color: #ffffff;
+}
+</style>
+
 <ul class="breadcrumb">
     <li class="text-default-bold"><i class="glyphicon glyphicon-user"></i> Employee</a></li>
     <ui class="glyphicon glyphicon-chevron-right"></ui>
@@ -26,9 +32,9 @@
 <div class="jumbotron">
     <form class="form-inline" method="post" id="EmpListForm">
         <table style="width:100%">
-            <tr style="background-color:#dddddd; height:50px;">
+            <tr style="background-color:#dddddd; height:60px;">
                 <td style="text-align:left">
-                    <button type="button" class="btn btn-success btn-xsm" title="Add Item" style="margin-left:7px" onclick="addClick()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                    <button type="button" class="btn btn-success " title="Add Item" style="margin-left:7px" onclick="addClick()"><span class="glyphicon glyphicon-plus"></span> Add</button>
                     @*<button type="button" class="btn btn-danger btn-xsm" title="Delete" style="margin-left:7px" onclick="deleteClick()"> <span class="glyphicon glyphicon-trash"></span> Delete </button>*@
                 </td>
 
@@ -66,9 +72,9 @@
             <table id="myTable" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
                 <thead style="font-weight: bold;">
                     <tr class="alert-info tablesorter-headerRow">
-                        @*<td style="min-width:30px"><input type="checkbox" title="Check All"></td>*@
-                        <th style="min-width: 20px; text-align: center" hidden="">@Html.Sorter(Model, "#", "\"id\"", "asc")</th>
-                        <th style="min-width: 90px; text-align: center">Action</th>
+                      
+                        <th style="min-width: 20px; text-align: center">No.</th>
+                       
                         <th style="min-width: 140px; text-align: center">@Html.Sorter(Model, "Username", "\"username\"", "asc") </th>
                         <th style="min-width: 140px; text-align: center">@Html.Sorter(Model, "First Name(EN)", "\"firstname\"", "asc") </th>
                         <th style="min-width: 140px; text-align: center">@Html.Sorter(Model, "Last Name(EN)", "\"lastname\"", "asc") </th>
@@ -76,38 +82,34 @@
                         <th style="min-width: 110px; text-align: center">@Html.Sorter(Model, "E-mail", "\"email\"", "asc") </th>
                         <th style="min-width: 100px; text-align: center">@Html.Sorter(Model, "Tel.", "\"phone\"", "asc") </th>
                         <th style="min-width: 100px; text-align: center">@Html.Sorter(Model, "Status", "\"status\"", "asc") </th>
+                        <th style="min-width: 90px; text-align: center">Action</th>
                     </tr>
 
                 </thead>
                 <tbody>
 
+                    @{var count = 1;}
                     @if (Model.List.Count != 0)
                     {
+                        
                         foreach (var list in Model.List)
                         {
                             <tr>
-                                @*<td>
-                                        <div>
-                                            <label>
-                                                <input id="delete" type="checkbox" value="@list.Id">
-                                            </label>
-                                        </div>
-                                    </td>*@
-                                <td hidden=""> @list.id</td>
-                                <td>
-                                    
-                                        <button type="button" class="btn btn-info  btn-xsm" title="Edit" onclick="editClick(@list.id)"> <span class="glyphicon glyphicon-pencil"></span></button>
-                                    
-                                    <button type="button" class="btn btn-success btn-xsm" title="Info" onclick="location.href='@Url.Action("View", "Employee", new { id = list.id })'"> <span class="glyphicon glyphicon-eye-open"></span></button>
-                                </td>
+                                <td> @count</td>
                                 <td>@list.UserName</td>
                                 <td>@list.FirstName</td>
                                 <td>@list.LastName</td>
                                 <td>@list.NickName</td>
                                 <td>@list.Email</td>
                                 <td>@list.Phone</td>
+                                <td>@list.Status</td>
+                                <td>
+                                    <button type="button" class="btn btn-info  btn-xsm" title="Edit" onclick="editClick(@list.id)"> <span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-success btn-xsm" title="Info" onclick="location.href='@Url.Action("View", "Employee", new { id = list.id })'"> <span class="glyphicon glyphicon-eye-open"></span></button>
+                                </td>
                                 
                             </tr>
+                            count++;
                         }
                     }
                     else
@@ -134,6 +136,7 @@
 </div>
 
 @Html.Partial("_modalPopup")
+@Html.Partial("_ModalConfirm")
 
 
 @section Scripts
@@ -141,14 +144,14 @@
 <script type="text/javascript" src="@Url.Content("/Scripts/scriptModal.js")"></script>
 <script type="text/javascript">
 
-
+   
     
 
     function addClick() {
         
         modalAction = "Add";
         modalPopupFooter.show();
-        modalPopupTitle[0].innerHTML = "Add Company";
+        modalPopupTitle[0].innerHTML = "Add Employee";
         modalPopupBody[0].innerHTML = '';
 
         var addempForm = $("<div>");
@@ -163,8 +166,48 @@
            
         });
         modalPopup.modal();
+    }
+
+
+    function editClick(id) {
+       
+        modalAction = "Edit";
+        modalPopupFooter.show();
+        modalPopupTitle[0].innerHTML = "Edit Employee";
+        modalPopupBody[0].innerHTML = '';
+        var editempForm = $("<div>");
+        editempForm.load("@Url.Action("Edit", "Employee")", "id=" + id);
+        editempForm.appendTo(modalPopupBody[0]);
+        modalPopup.modal({
+            backdrop: 'static'
+        }).on("show.bs.modal", function (e) {
+
+            $("#myModal button.btn-success").text("Save");
+            $("#myModal button.btn-danger").text("Cancel");
+            processing(false)
+        });
+        modalPopup.modal();
 
     }
+
+
+    $("#myModal button.btn-success").click(function () {
+        switch (modalAction) {
+
+            case "Add":
+
+                SubmitBTN()
+
+                break;
+            case "Edit":
+
+                SubmitBTN()
+
+                break;
+        }
+
+    });
+
 
 </script>
 

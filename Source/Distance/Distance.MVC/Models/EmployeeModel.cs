@@ -25,6 +25,5 @@ namespace Distance.MVC.Models
 
         public int Status { get; set; }
 
-        public string StatusName { get; set; }
     }
 }

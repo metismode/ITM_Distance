@@ -52,14 +52,14 @@ namespace Distance.MVC.Controllers
         }
 
 
-        public ActionResult Add(Employee model)
+        public ActionResult Add(EmployeeModel model)
         {
 
            return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddA(Employee model)
+        public ActionResult AddAjax(EmployeeModel model)
         {
             try
             {
@@ -75,8 +75,8 @@ namespace Distance.MVC.Controllers
                 }
                 else
                 {
-                   // var emp = Mapper.Map<EmployeeModel, Employee>(model);
-                    int id = service.InsertEmployee(model);
+                    var emp = Mapper.Map<EmployeeModel, Employee>(model);
+                    int id = service.InsertEmployee(emp);
                     Response.StatusCode = (int)HttpStatusCode.Accepted;
                     string messages = "Save Successfully";
                    
@@ -89,6 +89,51 @@ namespace Distance.MVC.Controllers
                 return Content(e.Message);
             }
  
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var emp = service.GetEmployee(id);
+            var model = Mapper.Map<Employee, EmployeeModel>(emp);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditAjax(EmployeeModel model)
+        {
+            try
+            {
+              
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join("<br/> ", ModelState.Values
+                             .SelectMany(x => x.Errors)
+                             .Select(x => x.ErrorMessage));
+                    Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    return Content(messages);
+                }
+                else
+                {
+                    var emp = Mapper.Map<EmployeeModel,Employee>(model);
+                    int id = service.UpdateEmployee(emp);
+                    Response.StatusCode = (int)HttpStatusCode.Accepted;
+                    string messages = "Save Successfully";
+                    return Content(messages);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
+            
+        }
+
+        public ActionResult View(int id)
+        {
+            var emp = service.GetEmployee(id);
+            var model = Mapper.Map<Employee, EmployeeModel>(emp);
+            return View(model);
+            
         }
     }
 }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Distance.Service.Dropdown
+namespace Distance.Data.Dropdown
 {
-    public interface IServicesDD
+   
+    public interface IStatusDao
     {
         List<DDStatus> GetStatusList();
     }

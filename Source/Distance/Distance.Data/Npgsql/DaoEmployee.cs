@@ -41,7 +41,7 @@ namespace Distance.Data.Npgsql
 
         public Employee GetEmployee(int id)
         {
-            string sql = "select username,password,firstname,lastname,nickname,phone,status,email from user_detail WHERE id = " + id;
+            string sql = "select id,username,password,firstname,lastname,nickname,phone,status,email from user_detail WHERE id = " + id;
 
             return db.Read(sql, Make).FirstOrDefault();
         }
@@ -98,7 +98,7 @@ namespace Distance.Data.Npgsql
             Email = reader["email"].AsString(),
             Phone = reader["phone"].AsString(),
             Status = reader["status"].AsInt()
-           // StatusName = reader["status"].AsInt()
+           
         };
         static Func<IDataReader, Employee> Make = reader => new Employee
         {
@@ -124,7 +124,7 @@ namespace Distance.Data.Npgsql
                 new NpgsqlParameter("@lastname",DbType.String),employee.LastName,
                 new NpgsqlParameter("@nickname",DbType.String),employee.NickName,
                 new NpgsqlParameter("@phone",DbType.String),employee.Phone,
-                new NpgsqlParameter("@status",DbType.String),employee.Status,
+                new NpgsqlParameter("@status",DbType.Int32),employee.Status,
                 new NpgsqlParameter("@email",DbType.String),employee.Email
             };
         
