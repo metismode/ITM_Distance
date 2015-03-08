@@ -22,6 +22,15 @@ namespace Distance.MVC.Controllers.DropDown
             Mapper.CreateMap<DDStatus, DropDownDataModel>()
                   .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.id))
                   .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.name));
+            Mapper.CreateMap<DDProvice, DropDownDataModel>()
+                  .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.LatLon))
+                  .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.Name));
+            Mapper.CreateMap<DDAmphur, DropDownDataModel>()
+                  .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.LatLon))
+                  .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.Name));
+            Mapper.CreateMap<DDTambon, DropDownDataModel>()
+                  .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.LatLon))
+                  .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.Name));
           
         }
         public DropDownController()
@@ -49,6 +58,63 @@ namespace Distance.MVC.Controllers.DropDown
 
             dropDownListModel.List = dataModelList;
             dropDownListModel.OptionalText = "--- Select Status ---";
+
+            return ShowDropDownList(dropDownListModel);
+        }
+
+       
+        public ActionResult ProviceList(DropDownListModel dropDownListModel)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var p = ddservice.GetProviceList();
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDProvice>, List<DropDownDataModel>>(p);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Provice ---";
+
+            return ShowDropDownList(dropDownListModel);
+        }
+
+
+        public ActionResult AmphurList(DropDownListModel dropDownListModel, int ProviceId = -1)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var a = ddservice.GetAmphurList(ProviceId);
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDAmphur>, List<DropDownDataModel>>(a);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Amphur ---";
+            if (ProviceId == -1 || dataModelList.Count() <= 0)
+            {
+                dropDownListModel.Disabled = true;
+            }
+
+            return ShowDropDownList(dropDownListModel);
+        }
+        public ActionResult TambonList(DropDownListModel dropDownListModel, int AmphurId = -1)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var t = ddservice.GetTambonList(AmphurId);
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDTambon>, List<DropDownDataModel>>(t);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Tambon ---";
+            if (AmphurId == -1 || dataModelList.Count <= 0)
+            {
+                dropDownListModel.Disabled = true;
+            }
 
             return ShowDropDownList(dropDownListModel);
         }

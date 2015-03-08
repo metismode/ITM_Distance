@@ -48,7 +48,10 @@
   <ItemGroup>
     <Compile Include="DaoFactories.cs" />
     <Compile Include="DDDaoFactories.cs" />
+    <Compile Include="Dropdown\IAmphurDao.cs" />
+    <Compile Include="Dropdown\IProviceDao.cs" />
     <Compile Include="Dropdown\IStatusDao.cs" />
+    <Compile Include="Dropdown\ITambonDao.cs" />
     <Compile Include="IDaoEmployee.cs" />
     <Compile Include="IDaoFactory.cs" />
     <Compile Include="IDaoMaster.cs" />
@@ -59,8 +62,11 @@
     <Compile Include="Npgsql\DaoMaster.cs" />
     <Compile Include="Npgsql\DaoUserAuth.cs" />
     <Compile Include="Npgsql\Db.cs" />
+    <Compile Include="Npgsql\Dropdown\AmphurDao.cs" />
     <Compile Include="Npgsql\Dropdown\DDDaoFactory.cs" />
+    <Compile Include="Npgsql\Dropdown\ProviceDao.cs" />
     <Compile Include="Npgsql\Dropdown\StatusDao.cs" />
+    <Compile Include="Npgsql\Dropdown\TambonDao.cs" />
     <Compile Include="Npgsql\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

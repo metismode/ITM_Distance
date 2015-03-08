@@ -3,5 +3,23 @@
     ViewBag.Title = "Distance";
 }
 
+
 <h2>Distance</h2>
+
+@Html.Action("ProviceList", "DropDown", new { SelectedProperty = "ProviceId", CSSClass = "form-control" })
+
+@*@Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control" })
+
+@Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control" })*@
+
+
+<span id="DDAmphur">
+    @Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control selectpicker" })
+</span>
+
+<span id="DDTambon">
+    @Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control selectpicker" })
+</span>
+
+
 

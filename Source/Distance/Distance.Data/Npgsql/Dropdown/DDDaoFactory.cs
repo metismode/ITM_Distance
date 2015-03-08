@@ -14,5 +14,19 @@ namespace Distance.Data.Npgsql.Dropdown
         {
             get { return new StatusDao(); }
         }
+
+        public IProviceDao ProviceDao
+        {
+            get { return new ProviceDao(); }
+        }
+        public IAmphurDao AmphurDao
+        {
+            get { return new AmphurDao(); }
+        }
+        public ITambonDao TambonDao
+        {
+            get { return new TambonDao(); }
+        }
+
     }
 }

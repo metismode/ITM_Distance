@@ -5,18 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Distance.Service.Dropdown
+namespace Distance.Data.Dropdown
 {
-    public interface IServicesDD
+    public interface IAmphurDao
     {
-        List<DDStatus> GetStatusList();
-
-        List<DDProvice> GetProviceList();
-
         List<DDAmphur> GetAmphurList(int id);
-
-        List<DDTambon> GetTambonList(int id);
-
-       
+        
     }
 }
