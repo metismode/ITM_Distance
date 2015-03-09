@@ -15,7 +15,11 @@
     }
 
 }
-
+<style>
+    table a {
+        color: #ffffff;
+    }
+</style>
 <ul class="breadcrumb">
     <li class="text-default-bold"><i class="glyphicon glyphicon-user"></i> Master</a></li>
     <ui class="glyphicon glyphicon-chevron-right"></ui>
@@ -27,8 +31,8 @@
         <table style="width:100%">
             <tr style="background-color:#dddddd; height:50px;">
                 <td style="text-align:left">
+                    <button type="button" class="btn btn-success " title="Add Item" style="margin-left:7px" onclick="addClick()"><span class="glyphicon glyphicon-plus"></span> Add</button>
                     @*<button type="button" class="btn btn-danger btn-xsm" title="Delete" style="margin-left:7px" onclick="deleteClick()"> <span class="glyphicon glyphicon-trash"></span> Delete </button>*@
-
                 </td>
 
                 <td style="text-align:right">
@@ -124,5 +128,80 @@
 
     </form>
 </div>
+
+@Html.Partial("_modalPopup")
+@Html.Partial("_ModalConfirm")
+
+
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/scriptModal.js")"></script>
+    <script type="text/javascript">
+
+
+        function addClick() {
+
+            modalAction = "Add";
+            modalPopupFooter.show();
+            modalPopupTitle[0].innerHTML = "Add Province";
+            modalPopupBody[0].innerHTML = '';
+
+            var addForm = $("<div>");
+            addForm.load("@Url.Action("AddProvince", "Master")");
+            addForm.appendTo(modalPopupBody[0]);
+            modalPopup.modal({
+                backdrop: 'static'
+            }).on("show.bs.modal", function (e) {
+
+                $("#myModal button.btn-success").text("Save");
+                $("#myModal button.btn-danger").text("Cancel");
+
+            });
+            modalPopup.modal();
+        }
+
+
+        function editClick(id) {
+
+            modalAction = "Edit";
+            modalPopupFooter.show();
+            modalPopupTitle[0].innerHTML = "Edit Province";
+            modalPopupBody[0].innerHTML = '';
+            var editForm = $("<div>");
+            editForm.load("@Url.Action("EditProvince", "Master")", "id=" + id);
+            editForm.appendTo(modalPopupBody[0]);
+            modalPopup.modal({
+                backdrop: 'static'
+            }).on("show.bs.modal", function (e) {
+
+                $("#myModal button.btn-success").text("Save");
+                $("#myModal button.btn-danger").text("Cancel");
+                processing(false)
+            });
+            modalPopup.modal();
+
+        }
+
+
+        $("#myModal button.btn-success").click(function () {
+            switch (modalAction) {
+
+                case "Add":
+
+                    SubmitBTN()
+
+                    break;
+                case "Edit":
+
+                    SubmitBTN()
+
+                    break;
+            }
+
+        });
+
+
+    </script>
+}
 
 

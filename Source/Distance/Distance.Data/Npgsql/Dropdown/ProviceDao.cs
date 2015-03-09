@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Distance.Data.Npgsql.Dropdown
 {
-    public class ProviceDao : IProviceDao
+    public class ProvinceDao : IProvinceDao
     {
         static Db db = new Db();
 
-        public List<DDProvice> GetProviceList()
+        public List<DDProvince> GetProvinceList()
         {
             string sql = "SELECT id,name " +
                          "FROM master_province";
             return db.Read(sql, Make).ToList();
         }
 
-        static Func<IDataReader, DDProvice> Make = reader => new DDProvice
+        static Func<IDataReader, DDProvince> Make = reader => new DDProvince
         {
             LatLon = reader["id"].AsString(),
             Name = reader["name"].AsString()

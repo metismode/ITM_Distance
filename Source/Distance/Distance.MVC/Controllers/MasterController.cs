@@ -6,6 +6,7 @@ using Distance.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -88,5 +89,144 @@ namespace Distance.MVC.Controllers
         }
 
 
+        public ActionResult AddProvince(MasterDataModel model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddProvinceAjax(MasterDataModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join("<br/> ", ModelState.Values
+                             .SelectMany(x => x.Errors)
+                             .Select(x => x.ErrorMessage));
+                    Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    return Content(messages);
+                }
+                else
+                {
+                    var p = Mapper.Map<MasterDataModel, Master>(model);
+                    int id = service.InsertProvince(p);
+                    Response.StatusCode = (int)HttpStatusCode.Accepted;
+                    string messages = "Save Successfully";
+                    return Content(messages);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
+
+        }
+
+        public ActionResult EditProvince(int id)
+        {
+            var p = service.GetProvince(id);
+            var model = Mapper.Map<Master, MasterDataModel>(p);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditProvinceAjax(MasterDataModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join("<br/> ", ModelState.Values
+                             .SelectMany(x => x.Errors)
+                             .Select(x => x.ErrorMessage));
+                    Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    return Content(messages);
+                }
+                else
+                {
+                    var p = Mapper.Map<MasterDataModel, Master>(model);
+                    int id = service.UpdateProvince(p);
+                    Response.StatusCode = (int)HttpStatusCode.Accepted;
+                    string messages = "Save Successfully";
+                    return Content(messages);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
+
+        }
+
+        public ActionResult AddAmphur(MasterDataModel model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddAmphurAjax(MasterDataModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join("<br/> ", ModelState.Values
+                             .SelectMany(x => x.Errors)
+                             .Select(x => x.ErrorMessage));
+                    Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    return Content(messages);
+                }
+                else
+                {
+                    var a = Mapper.Map<MasterDataModel, Master>(model);
+                    int id = service.InsertAmphur(a);
+                    Response.StatusCode = (int)HttpStatusCode.Accepted;
+                    string messages = "Save Successfully";
+                    return Content(messages);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
+
+        }
+
+        public ActionResult EditAmphur(int id)
+        {
+            var a = service.GetAmphur(id);
+            var model = Mapper.Map<Master, MasterDataModel>(a);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditAmphurAjax(MasterDataModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join("<br/> ", ModelState.Values
+                             .SelectMany(x => x.Errors)
+                             .Select(x => x.ErrorMessage));
+                    Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    return Content(messages);
+                }
+                else
+                {
+                    var a = Mapper.Map<MasterDataModel, Master>(model);
+                    int id = service.UpdateAmphur(a);
+                    Response.StatusCode = (int)HttpStatusCode.Accepted;
+                    string messages = "Save Successfully";
+                    return Content(messages);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
+
+        }
     }
 }

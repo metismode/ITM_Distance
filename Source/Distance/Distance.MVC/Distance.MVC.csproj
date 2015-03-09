@@ -159,6 +159,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\JS\AmphurJS.js" />
     <Content Include="Scripts\JS\bootbox.js" />
     <Content Include="Scripts\JS\bootstrap-select.js" />
     <Content Include="Scripts\JS\bootstrap-tagsinput.js" />
@@ -169,6 +170,7 @@
     <Content Include="Scripts\JS\fileinput.js" />
     <Content Include="Scripts\JS\jquery-2.1.3.min.js" />
     <Content Include="Scripts\JS\moment.js" />
+    <Content Include="Scripts\JS\ProvinceJS.js" />
     <Content Include="Scripts\scriptModal.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -210,6 +212,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+    <Content Include="Views\Master\AddProvince.cshtml" />
+    <Content Include="Views\Master\EditProvince.cshtml" />
+    <Content Include="Views\Master\AddAmphur.cshtml" />
+    <Content Include="Views\Master\EditAmphur.cshtml" />
+    <Content Include="Views\Master\FormProvince.cshtml" />
+    <Content Include="Views\Master\FormAmphur.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Distance.Business\Distance.Business.csproj">

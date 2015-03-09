@@ -15,9 +15,9 @@ namespace Distance.Data.Npgsql.Dropdown
             get { return new StatusDao(); }
         }
 
-        public IProviceDao ProviceDao
+        public IProvinceDao ProvinceDao
         {
-            get { return new ProviceDao(); }
+            get { return new ProvinceDao(); }
         }
         public IAmphurDao AmphurDao
         {

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Distance.Data.Dropdown
 {
-    public interface IProviceDao
+    public interface IProvinceDao
     {
-        List<DDProvice> GetProviceList();
+        List<DDProvince> GetProvinceList();
     }
 }

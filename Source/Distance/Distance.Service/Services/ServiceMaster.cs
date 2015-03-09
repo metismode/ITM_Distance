@@ -58,6 +58,43 @@ namespace Distance.Service.Services
         }
 
 
+         public Master GetProvince(int id)
+         {
+             var data = DaoMaster.GetProvince(id);
+
+             return data;
+         }
+
+         public int InsertProvince(Master model)
+         {
+             int id = DaoMaster.InsertProvince(model);
+             return id;
+         }
+
+         public int UpdateProvince(Master model)
+         {
+             int id = DaoMaster.UpdateProvince(model);
+             return id;
+         }
+
+         public Master GetAmphur(int id)
+         {
+             var data = DaoMaster.GetAmphur(id);
+
+             return data;
+         }
+
+         public int InsertAmphur(Master model)
+         {
+             int id = DaoMaster.InsertAmphur(model);
+             return id;
+         }
+
+         public int UpdateAmphur(Master model)
+         {
+             int id = DaoMaster.UpdateAmphur(model);
+             return id;
+         }
 
           
 

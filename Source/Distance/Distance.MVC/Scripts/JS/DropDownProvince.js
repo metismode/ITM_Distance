@@ -2,9 +2,9 @@
     var DDTambon = $("#DDTambon");
     var DDAmphur = $("#DDAmphur");
     $('.selectpicker').selectpicker();
-    $("#dx-dropdown[name=ProviceId]").change(function (e) {
+    $("#dx-dropdown[name=ProvinceId]").change(function (e) {
         e.preventDefault();
-        var ProviceId = $(e.currentTarget).val();
+        var ProvinceId = $(e.currentTarget).val();
         
         DDTambon.find("select").val("");
         DDTambon.find("select").prop('disabled', true);
@@ -20,7 +20,7 @@
             IsMultiselect: false,
             CSSClass: "form-control selectpicker",
             HasSearch: true,
-            ProviceId: ProviceId
+            ProvinceId: ProvinceId
         }, function () {
             $("#dx-dropdown[name=AmphurId]").on('change', function (e) {
                 e.preventDefault();

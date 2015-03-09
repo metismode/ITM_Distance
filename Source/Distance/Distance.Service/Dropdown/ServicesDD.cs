@@ -15,7 +15,7 @@ namespace Distance.Service.Dropdown
         static readonly string provider = ConfigurationManager.AppSettings.Get("DataProvider");
         static readonly IDDDaoFactory factory = DDDaoFactories.GetFactory(provider);
         static readonly IStatusDao StatusDao = factory.StatusDao;
-        static readonly IProviceDao ProviceDao = factory.ProviceDao;
+        static readonly IProvinceDao ProvinceDao = factory.ProvinceDao;
         static readonly IAmphurDao AmphurDao = factory.AmphurDao;
         static readonly ITambonDao TambonDao = factory.TambonDao;
 
@@ -23,9 +23,9 @@ namespace Distance.Service.Dropdown
         {
             return StatusDao.GetStatusList();
         }
-        public List<DDProvice> GetProviceList()
+        public List<DDProvince> GetProvinceList()
         {
-            return ProviceDao.GetProviceList();
+            return ProvinceDao.GetProvinceList();
         }
         public List<DDAmphur> GetAmphurList(int id)
         {

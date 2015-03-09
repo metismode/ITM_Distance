@@ -9,6 +9,8 @@ namespace Distance.MVC.Models
     {
         public int Id { get; set; }
 
+        public int PID { get; set; }
+
         public string Name { get; set; }
 
         public string Lat { get; set; }

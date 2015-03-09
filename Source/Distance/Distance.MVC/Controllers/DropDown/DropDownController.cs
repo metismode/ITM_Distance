@@ -22,7 +22,7 @@ namespace Distance.MVC.Controllers.DropDown
             Mapper.CreateMap<DDStatus, DropDownDataModel>()
                   .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.id))
                   .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.name));
-            Mapper.CreateMap<DDProvice, DropDownDataModel>()
+            Mapper.CreateMap<DDProvince, DropDownDataModel>()
                   .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.LatLon))
                   .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.Name));
             Mapper.CreateMap<DDAmphur, DropDownDataModel>()
@@ -63,28 +63,28 @@ namespace Distance.MVC.Controllers.DropDown
         }
 
        
-        public ActionResult ProviceList(DropDownListModel dropDownListModel)
+        public ActionResult ProvinceList(DropDownListModel dropDownListModel)
         {
             //----------------Load Data Dropdown-------------------------------
 
-            var p = ddservice.GetProviceList();
+            var p = ddservice.GetProvinceList();
 
             //----------------------------------------------------------
 
-            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDProvice>, List<DropDownDataModel>>(p);
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDProvince>, List<DropDownDataModel>>(p);
 
             dropDownListModel.List = dataModelList;
-            dropDownListModel.OptionalText = "--- Select Provice ---";
+            dropDownListModel.OptionalText = "--- Select Province ---";
 
             return ShowDropDownList(dropDownListModel);
         }
 
 
-        public ActionResult AmphurList(DropDownListModel dropDownListModel, int ProviceId = -1)
+        public ActionResult AmphurList(DropDownListModel dropDownListModel, int ProvinceId = -1)
         {
             //----------------Load Data Dropdown-------------------------------
 
-            var a = ddservice.GetAmphurList(ProviceId);
+            var a = ddservice.GetAmphurList(ProvinceId);
 
             //----------------------------------------------------------
 
@@ -92,7 +92,7 @@ namespace Distance.MVC.Controllers.DropDown
 
             dropDownListModel.List = dataModelList;
             dropDownListModel.OptionalText = "--- Select Amphur ---";
-            if (ProviceId == -1 || dataModelList.Count() <= 0)
+            if (ProvinceId == -1 || dataModelList.Count() <= 0)
             {
                 dropDownListModel.Disabled = true;
             }

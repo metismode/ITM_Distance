@@ -11,7 +11,7 @@ namespace Distance.Service.Dropdown
     {
         List<DDStatus> GetStatusList();
 
-        List<DDProvice> GetProviceList();
+        List<DDProvince> GetProvinceList();
 
         List<DDAmphur> GetAmphurList(int id);
 

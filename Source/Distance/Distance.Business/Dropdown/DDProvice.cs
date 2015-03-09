@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Distance.Business.Dropdown
 {
-    public class DDProvice
+    public class DDProvince
     {
         public string LatLon { get; set; }
 

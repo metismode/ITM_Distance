@@ -54,7 +54,6 @@ namespace Distance.MVC.Controllers
 
         public ActionResult Add(EmployeeModel model)
         {
-
            return View(model);
         }
 

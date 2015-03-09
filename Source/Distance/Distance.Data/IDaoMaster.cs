@@ -15,5 +15,16 @@ namespace Distance.Data
         int GetCountP(string keyword = null, string filterData = null, int status = 0);
         int GetCountA(string keyword = null, string filterData = null, int status = 0);
         int GetCountT(string keyword = null, string filterData = null, int status = 0);
+
+        Master GetProvince(int id);
+        int InsertProvince(Master model);
+        int UpdateProvince(Master model);
+
+        Master GetAmphur(int id);
+        int InsertAmphur(Master model);
+        int UpdateAmphur(Master model);
+
+        
+
     }
 }
