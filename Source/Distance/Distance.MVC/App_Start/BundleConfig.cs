@@ -18,25 +18,34 @@ namespace Distance.MVC
                      "~/Scripts/JS/bootstrap-select.js",
                      "~/Scripts/JS/bootbox.js",
                      "~/Scripts/JS/bootstrap-tagsinput.js",
-                     "~/Scripts/JS/fileinput.js"
+                     "~/Scripts/JS/fileinput.js",
+
+                     
+                     
+                     "~/Boot/bootflat/js/icheck.min.js",
+                     "~/Boot/bootflat/js/jquery.fs.selecter.min.js",
+                     "~/Boot/bootflat/js/jquery.fs.stepper.min.js"
+                     
+
 
                     ));
 
             bundles.Add(new StyleBundle("~/css").Include(
 
 
-                      //"~/Content/CSS/bootstrap_office.css",
+                      "~/Content/CSS/bootstrap_office.css",
                       //"~/Content/CSS/bootstrap.min.css", ///CSS new //bootswatch.com/cosmo/
 
-                      "~/Content/CSS/bootstrap.css", ///CSS new //bootswatch.com/flatly/
+                      //"~/Content/CSS/bootstrap.css", ///CSS new //bootswatch.com/flatly/
                       "~/Content/CSS/DXbootstrap.css", ///CSS new DX
                       "~/Content/CSS/bootstrap-responsive.css",
                       "~/Content/CSS/bootstrapValidator.css",
                       "~/Content/CSS/bootstrap-select.css",
                       "~/Content/CSS/bootstrap-glyphicons.css",
                       "~/Content/CSS/bootstrap-tagsinput.css",
-                      "~/Content/CSS/fileinput.css"
-                    
+                      "~/Content/CSS/fileinput.css",
+
+                    "~/Boot/bootflat/css/bootflat.css"
                       ));
 
 
