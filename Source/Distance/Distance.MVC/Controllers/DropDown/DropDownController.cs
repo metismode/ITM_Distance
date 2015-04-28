@@ -80,11 +80,17 @@ namespace Distance.MVC.Controllers.DropDown
         }
 
 
-        public ActionResult AmphurList(DropDownListModel dropDownListModel, int ProvinceId = -1)
+        public ActionResult AmphurList(DropDownListModel dropDownListModel, string ProvinceId = "-1")
         {
             //----------------Load Data Dropdown-------------------------------
 
-            var a = ddservice.GetAmphurList(ProvinceId);
+            if (ProvinceId == "")
+                ProvinceId = "-1";
+
+            string[] words = ProvinceId.Split('/');
+            ProvinceId = words[0];
+
+            var a = ddservice.GetAmphurList(Convert.ToInt32(ProvinceId));
 
             //----------------------------------------------------------
 
@@ -92,13 +98,59 @@ namespace Distance.MVC.Controllers.DropDown
 
             dropDownListModel.List = dataModelList;
             dropDownListModel.OptionalText = "--- Select Amphur ---";
-            if (ProvinceId == -1 || dataModelList.Count() <= 0)
+            if (Convert.ToInt32(ProvinceId) == -1 || dataModelList.Count() <= 0)
             {
                 dropDownListModel.Disabled = true;
             }
 
             return ShowDropDownList(dropDownListModel);
         }
+
+        public ActionResult ProvinceList2(DropDownListModel dropDownListModel)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var p = ddservice.GetProvinceList();
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDProvince>, List<DropDownDataModel>>(p);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Province ---";
+
+            return ShowDropDownList(dropDownListModel);
+        }
+
+
+        public ActionResult AmphurList2(DropDownListModel dropDownListModel, string ProvinceId = "-1")
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            if (ProvinceId == "")
+                ProvinceId = "-1";
+
+            string[] words = ProvinceId.Split('/');
+            ProvinceId = words[0];
+
+            var a = ddservice.GetAmphurList(Convert.ToInt32(ProvinceId));
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDAmphur>, List<DropDownDataModel>>(a);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Amphur ---";
+            if (Convert.ToInt32(ProvinceId) == -1 || dataModelList.Count() <= 0)
+            {
+                dropDownListModel.Disabled = true;
+            }
+
+            return ShowDropDownList(dropDownListModel);
+        }
+
+
+
         public ActionResult TambonList(DropDownListModel dropDownListModel, int AmphurId = -1)
         {
             //----------------Load Data Dropdown-------------------------------

@@ -15,14 +15,14 @@ namespace Distance.Data.Npgsql.Dropdown
 
         public List<DDAmphur> GetAmphurList(int id)
         {
-            string sql = "SELECT id,name,pid " +
+            string sql = "SELECT id,name,pid,CONCAT(lat,',',lon) as ll  " +
                          "FROM master_amphur WHERE pid ="+id;
             return db.Read(sql, Make).ToList();
         }
 
         static Func<IDataReader, DDAmphur> Make = reader => new DDAmphur
         {
-            LatLon = reader["id"].AsString(),
+            LatLon = reader["id"].AsString() + "/" + reader["ll"].AsString(),
             Name = reader["name"].AsString()
 
         };

@@ -166,6 +166,7 @@
     <Content Include="Scripts\JS\bootstrap.js" />
     <Content Include="Scripts\JS\bootstrapValidator.js" />
     <Content Include="Scripts\JS\DropDownProvince.js" />
+    <Content Include="Scripts\JS\DropDownProvince2.js" />
     <Content Include="Scripts\JS\EmployeeJS.js" />
     <Content Include="Scripts\JS\fileinput.js" />
     <Content Include="Scripts\JS\jquery-2.1.3.min.js" />

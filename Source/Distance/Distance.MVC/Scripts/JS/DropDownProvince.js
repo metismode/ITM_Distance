@@ -4,8 +4,9 @@
     $('.selectpicker').selectpicker();
     $("#dx-dropdown[name=ProvinceId]").change(function (e) {
         e.preventDefault();
+       
         var ProvinceId = $(e.currentTarget).val();
-        
+
         DDTambon.find("select").val("");
         DDTambon.find("select").prop('disabled', true);
         DDAmphur.find("select").val("");
@@ -13,7 +14,7 @@
         
         setTimeout(function () {
             $('.selectpicker').selectpicker();
-        }, 50);
+        }, 100);
         $("#DDAmphur").load("../DropDown/AmphurList", {
             SelectedProperty: "AmphurId",
             SelectedValue: -1,
@@ -27,7 +28,7 @@
                 var AmphurId = $(e.currentTarget).val();
                 setTimeout(function () {
                     $('.selectpicker').selectpicker();
-                }, 50);
+                }, 100);
                 DDTambon.load("../DropDown/TambonList", {
                     SelectedProperty: "TambonId",
                     SelectedValue: -1,
@@ -39,21 +40,12 @@
             });
 
         });
-        //setTimeout(function () {
-        //    $('.selectpicker').selectpicker();
-        //}, 300);
-        //DDTambon.load("../DropDown/TambonList", {
-        //    SelectedProperty: "TambonId",
-        //    SelectedValue: -1,
-        //    IsMultiselect: false,
-        //    CSSClass: "form-control selectpicker",
-        //    HasSearch: true,
-        //    AmphurId: -1
-        //});
+      
     });
     $('.selectpicker').selectpicker();
     $("#dx-dropdown[name=AmphurId]").on('change', function (e) {
         e.preventDefault();
+     
         var AmphurId = $(e.currentTarget).val();
        
         DDTambon.load("../DropDown/TambonList", {

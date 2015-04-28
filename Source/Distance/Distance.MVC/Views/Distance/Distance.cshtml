@@ -1,25 +1,533 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Distance";
 }
 
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/DropDownProvince.js")"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/DropDownProvince2.js")"></script>
 
-<h2>Distance</h2>
-
-@Html.Action("ProvinceList", "DropDown", new { SelectedProperty = "ProvinceId", CSSClass = "form-control" })
-
-@*@Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control" })
-
-@Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control" })*@
-
-
-<span id="DDAmphur">
-    @Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control selectpicker" })
-</span>
-
-<span id="DDTambon">
-    @Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control selectpicker" })
-</span>
+<ul class="breadcrumb">
+    <li class="text-default-bold">  <i class="glyphicon glyphicon-map-marker"></i> Distance Matrix</li>
+    <i class="glyphicon glyphicon-chevron-right"></i>
+    <li class="text-default-bold"> <a href="@Url.Action("Distance", "Distance", null)"><i class="glyphicon glyphicon-map-marker"></i> Distance</a></li>
+</ul>
 
 
+    
+    <div class="jumbotron" style="height:600px">
+       <br /><br />
 
+        <div style="margin-left:5px; margin-right:5px; margin-top:-15px;">
+            <div style="width: 100%">
+                <div style=" float: left; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Origin</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo" value="radio1" checked="checked">
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" id="txtorigin" name="origin" placeholder="e.g. latitude,longitude ,keyword" class="radio1 text-info form-control" maxlength="30" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo" value="radio2">
+                                </div>
+                                <div class="col-lg-4">
+                                    @Html.Action("ProvinceList", "DropDown", new { SelectedProperty = "ProvinceId", CSSClass = "form-control", HasSearch = "true" })
+                                </div>
+                                <div class="col-lg-4">
+                                    <span id="DDAmphur">
+                                        @Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control selectpicker" })
+                                    </span>
+                                </div>
+
+                                <p align="right">
+                                    <button type="button" class="btn btn-success " value="Add" onclick="addOrigin()">
+                                        <span class="glyphicon glyphicon-plus"></span> Add
+                                    </button>
+
+                                </p>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%">
+                <div style=" float: right; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Destination</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo2" value="radio11" checked="checked">
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" id="txtdestination" name="destination" placeholder="e.g. latitude,longitude ,keyword" class="radio11 text-info form-control" maxlength="30" />
+                                </div>
+                            </div>
+                           <br /><br />
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo2" value="radio22">
+                                </div>
+                                <div class="col-lg-4">
+                                    @Html.Action("ProvinceList2", "DropDown", new { SelectedProperty = "ProvinceId2", CSSClass = "form-control", HasSearch = "true" })
+                                </div>
+                                <div class="col-lg-4">
+                                    <span id="DDAmphur2">
+                                        @Html.Action("AmphurList2", "DropDown", new { SelectedProperty = "AmphurId2", CSSClass = "form-control selectpicker" })
+                                    </span>
+                                </div>
+                                <p align="right">
+                                    <button type="button" class="btn btn-success" value="Add" onclick="addDestination()">
+                                        <span class="glyphicon glyphicon-plus"></span> Add
+                                    </button>
+
+                                </p>
+                               
+                            </div>
+                            
+
+                            @*<div class="col-lg-4">
+                                <span id="DDTambon">
+                                    @Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control selectpicker" })
+                                </span>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+        <p align="right">
+            <button type="button" id="btncal" class="btn btn-success " value="Add" onclick="Cal()">
+                <span class="glyphicon glyphicon-plus"></span> Go
+            </button>
+            <button type="button" id="btnexport" class="btn btn-success " value="Add" onclick="Cal()">
+                <span class="glyphicon glyphicon-plus"></span> Excel
+            </button>
+        </p><br />
+
+        <div style="margin-left:5px; margin-right:5px; margin-top:-15px;">
+            <div style="width: 100%">
+                <div style=" float: left; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Origin</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;Total Origin : <label id="lblOrigin">0</label>
+
+                            <div style="float:right;">
+                                @*<p align="right">*@
+                                <button type="button" value="Clear" onclick="Clean(0)" class="btn btn-danger btn-xsm" title="Clear">
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                @*</p>*@
+                            </div>
+                            <br />
+                            <br />
+
+                            <table id="tblO" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                                <thead>
+                                    <tr class="alert-info">
+                                        
+                                        <td>Province</td>
+                                        <td>Amphur</td>
+                                        <td>LatLon / Keyword</td>
+                                        <td>Aciton</td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%">
+                <div style=" float: right; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Destination</h3>
+                        </div>
+                        <div class="panel-body">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Total Destination : <label id="lblDestination">0</label>
+
+                            <div style="float:right;">
+                                @*<p align="right">*@
+                                <button type="button" value="Clear" onclick="Clean(1)" class="btn btn-danger btn-xsm" title="Clear">
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                @*</p>*@
+                            </div>
+                            <br />
+                            <br />
+                            
+                            <table id="tblD" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                                <thead>
+                                    <tr class="alert-info">
+                                       
+                                        <td>Province</td>
+                                        <td>Amphur</td>
+                                        <td>LatLon / Keyword</td>
+                                        <td>Aciton</td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+        @*<div id="map_canvas" style="width:700px; height:500px; margin-left:80px;"></div>
+       
+        <style type="text/css">
+            #map_canvas {
+                display: none;
+            }
+        </style>*@
+
+        </div>
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script>
+
+    var countO = 0;
+    var countD = 0;
+
+    $(function () {
+
+        $('.selectpicker').selectpicker();
+
+        countO = $('#addOrigin tbody tr').length;
+        countD = $('#addDestination tbody tr').length;
+        $("#lblOrigin").html(countO);
+        $("#lblDestination").html(countD);
+        checkInput();
+       
+        $('input[type=radio][name=rdo]').click(function () {
+            var related_class = $(this).val();
+            $('.' + related_class).prop('disabled', false);
+            
+            $('input[type=radio][name=rdo]').not(':checked').each(function () {
+                var other_class = $(this).val();
+                $('.' + other_class).prop('disabled', true);
+                $("input[name='origin']").val("");
+            });
+        });
+
+        $('input[type=radio][name=rdo2]').click(function () {
+            var related_class = $(this).val();
+            $('.' + related_class).prop('disabled', false);
+            
+            $('input[type=radio][name=rdo2]').not(':checked').each(function () {
+                var other_class = $(this).val();
+                $('.' + other_class).prop('disabled', true);
+                $("input[name='destination']").val("")
+            });
+           
+        });
+
+
+            //document.getElementById('map_canvas').style.display = "block";
+            //initialize();
+
+    })
+
+    function addOrigin() {
+
+
+        var checkradio = $('input[type=radio][name=rdo]:checked').val()
+        var keyword = $("input[name='origin']").val();
+        //-----------------------------------------------------------------------
+        var latlonP = $("#dx-dropdown[name=ProvinceId]").val()
+        latlonP = latlonP.split('/');
+        latlonP = latlonP[1];
+        var nameP = $("#dx-dropdown[name=ProvinceId] option:selected").text().trim()
+        var latlonA = $("#dx-dropdown[name=AmphurId]").val()
+        latlonA = latlonA.split('/');
+        latlonA = latlonA[1];
+        var nameA = $("#dx-dropdown[name=AmphurId] option:selected").text().trim()
+        //-----------------------------------------------------------------------
+
+        if (checkradio == "radio1") {
+
+            if (keyword != "") {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(keyword));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+                $("#txtorigin").val("");
+
+            } else {
+                alert("กรอกข้อมูล")
+            }
+
+        }
+
+        if (checkradio == "radio2") {
+
+            if (latlonP != null && latlonA == null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(nameP));
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(latlonP));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+            } else if (latlonP != null && latlonA != null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(nameP));
+                $tr.append($("<td>").append(nameA));
+                $tr.append($("<td>").append(latlonA));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+            } else {
+                alert("กรอกข้อมูล")
+            }
+            $("select[name='ProvinceId']").val("");
+            $("select[name='ProvinceId']").trigger("change");
+        }
+    }
+
+
+    function addDestination() {
+
+        var checkradio = $('input[type=radio][name=rdo2]:checked').val()
+        var keyword = $("input[name='destination']").val();
+        //-----------------------------------------------------------------------
+        var latlonP = $("#dx-dropdown[name=ProvinceId2]").val()
+        latlonP = latlonP.split('/');
+        latlonP = latlonP[1];
+        var nameP = $("#dx-dropdown[name=ProvinceId2] option:selected").text().trim()
+        //-----------------------------------------------------------------------
+        var latlonA = $("#dx-dropdown[name=AmphurId2]").val()
+        latlonA = latlonA.split('/');
+        latlonA = latlonA[1];
+        var nameA = $("#dx-dropdown[name=AmphurId2] option:selected").text().trim()
+
+
+        if (checkradio == "radio11") {
+            if (keyword!="") {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(keyword));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+
+                $("#txtdestination").val("");
+
+            }else {
+                alert("กรอกข้อมูล")
+            }
+        } 
+        if (checkradio == "radio22") {
+            if (latlonP != null && latlonA == null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(nameP));
+                $tr.append($("<td>").append(" - "));
+                $tr.append($("<td>").append(latlonP));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+
+            } else if (latlonP != null && latlonA != null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td>").append(nameP));
+                $tr.append($("<td>").append(nameA));
+                $tr.append($("<td>").append(latlonA));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+            } else {
+                alert("กรอกข้อมูล")
+            }
+            $("select[name='ProvinceId2']").val("");
+            $("select[name='ProvinceId2']").trigger("change");
+        }
+        
+     }
+
+
+    function Clean(id) {
+        if (id == 0) {
+            $("#tblO tbody tr").remove();
+            countO = 0;
+            $("#lblOrigin").html(countO);
+        }
+        if (id == 1) {
+            $("#tblD tbody tr").remove();
+            countD = 0;
+            $("#lblDestination").html(countD);
+        }
+        checkInput()
+      
+    }
+
+    function checkInput() {
+        if (countD > 0 && countO > 0) {
+            $("button#btncal").prop('disabled', false);
+            $("button#btnexport").prop('disabled', false);
+
+        } else {
+            $("button#btncal").prop('disabled', true);
+            $("button#btnexport").prop('disabled', true);
+        }
+
+
+    }
+
+
+    function initialize() {
+        // create the map
+
+        var myOptions = {
+            zoom: 7,
+            center: new google.maps.LatLng(13.6882139, 100.8968423),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    }
+
+</script>
+
+
+
+
+
+
+
+        
+
+    
