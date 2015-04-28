@@ -15,7 +15,7 @@ namespace Distance.Data.Npgsql.Dropdown
 
         public List<DDProvince> GetProvinceList()
         {
-            string sql = "SELECT id,name,CONCAT(lat,',',lon) as ll " +
+            string sql = "SELECT id,name,CONCAT(lon,',',lat) as ll " +
                          "FROM master_province";
             return db.Read(sql, Make).ToList();
         }

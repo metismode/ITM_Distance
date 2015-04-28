@@ -165,6 +165,7 @@
     <Content Include="Scripts\JS\bootstrap-tagsinput.js" />
     <Content Include="Scripts\JS\bootstrap.js" />
     <Content Include="Scripts\JS\bootstrapValidator.js" />
+    <Content Include="Scripts\JS\Distance.js" />
     <Content Include="Scripts\JS\DropDownProvince.js" />
     <Content Include="Scripts\JS\DropDownProvince2.js" />
     <Content Include="Scripts\JS\EmployeeJS.js" />
