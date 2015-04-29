@@ -13,6 +13,7 @@
 </ul>
 
 
+
 <div class="panel panel-success">
     <div class="panel-body">
         <br /><br />
@@ -66,7 +67,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Destination</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body ">
 
                             <div class="form-group">
                                 <div class="col-lg-1">
@@ -198,18 +199,113 @@
 
     </div>
     <div id="outputDiv"></div>
+
+</div>
+
+<div class="modal fade" id="myMap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%">
+        <div class="modal-content">
+
+         
+            <div class="modal-body">
+                <style>
+                    #map-canvas {
+                        height: 500px;
+                        width:100%;
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                </style>
+
+                <div id="map-canvas"></div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
-<script type="text/javascript" src="@Url.Content("/Scripts/JS/Distance.js")"></script>
+@Html.Partial("_ModalConfirm")
+
+
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+
+
 <script>
 
+    var modalMap = $("#myMap");
+   
+
+
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+
+    function initialize(a, b, c, d) {
+
+        var myLatlngO = new google.maps.LatLng(a, b);
+        var myLatlngD = new google.maps.LatLng(c, d);
+
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var myLatlng = new google.maps.LatLng(14.466991, 100.545021);
+        var mapOptions = {
+            zoom: 7,
+            center: myLatlng
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        directionsDisplay.setMap(map);
+
+
+        var start = myLatlngO;
+        var end = myLatlngD;
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            }
+        });
+
+    }
+
+   
+
+    function Map1(a, b,c,d) {
+
+        modalMap.modal({
+            backdrop: 'static'
+        }).on("show.bs.modal", function (e) {
+
+            $("#myMap button.btn-danger").text("Close");
+            google.maps.event.addDomListener(window, 'load', initialize(a, b, c, d));
+            google.maps.event.trigger(map, 'resize');
+        });
+        
+        setTimeout(function () {
+            modalMap.modal();
+        }, 1000);
+
+
+       
+
+    }
+    
     var countO = 0;
     var countD = 0;
 
     $(function () {
 
+      
         $('.selectpicker').selectpicker();
 
         countO = $('#addOrigin tbody tr').length;
@@ -499,15 +595,21 @@
     }
 
 
+    var ori = [];
+    var des = [];
+    var orip = [];
+    var oria = [];
+    var desp = [];
+    var desa = [];
+
     function pushData() {
-       var ori = [];
-       var des = [];
-
-       var orip = [];
-       var oria = [];
-
-       var desp = [];
-       var desa = [];
+       
+        ori = [];
+        des = [];
+        orip = [];
+        oria = [];
+        desp = [];
+        desa = [];
        
         try {
 
@@ -533,6 +635,90 @@
         }
         catch (e) {
             alert("ไม่สำเร็จ" + e)
+        }
+    }
+
+
+    var htmlstring = "";
+
+    function calculateDistances(ori, des) {
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+              origins: ori,
+              destinations: des,
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: false,
+              avoidTolls: false
+          }, callback);
+
+        htmlstring = "";
+
+    }
+
+    function callback(response, status) {
+
+        console.log(response)
+
+        if (status != google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+        } else {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            for (var i = 0; i < origins.length; i++) {
+
+                var results = response.rows[i].elements;
+                htmlstring += '<center><div class="table-responsive"><table border="1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default" style="width: 95%">'
+                                + '<tr class="success">'
+                                 + '<th style="display:none;">' + ori[i] + '</th>'
+                                + '<th colspan="2" style="text-align:center">&nbsp;' + checkNameP(orip[i]) + " " + checkNameA(oria[i]) + '</th>'
+                                + '<th colspan="3" style="text-align:center">&nbsp;' + origins[i] + '</th>'
+                                + '</tr>'
+                                + '<tr class="info">'
+                               + '<th style="width: 25px; text-align:center">No. </th>'
+                               + '<th style="width: 100px; text-align:center">Destination </th>'
+                               + '<th style="width: 200px; text-align:center">Destination </th>'
+                               + '<th style="width: 75px; text-align:center">Distance (km)</th>'
+                               + '<th style="width: 75px; text-align:center">Duration (hr)</th>'
+                               + '</tr>';
+
+                for (var j = 0 ; j < destinations.length ; j++) {
+
+                    htmlstring += '<tr>'
+                                + '<td style="display:none;">' + des[j] + '</th>'
+                                + '<td>' + (j + 1) + '</td>'
+                                 + '<td>' + checkNameP(desp[j]) + " " + checkNameA(desa[j]) + '  ' + '<button class="btn btn-danger btn-xsm" onclick="Map1(' + ori[i] + ',' + des[j] + ')" type="button">Map</button></td>'
+                                + '<td>' + destinations[j] + '</td>'
+                                + '<td>' + results[j].distance.text + '</td>'
+                                + '<td>' + results[j].duration.text + '</td>'
+                                + '</tr>';
+
+                }
+            }
+
+            htmlstring += '</table></div></center>';
+
+            var outputDiv = document.getElementById('outputDiv');
+            outputDiv.innerHTML = htmlstring;
+        }
+    }
+
+
+    function checkNameP(name) {
+        if (name != " - ") {
+            return "จ." + name
+        } else {
+            return ""
+        }
+    }
+    function checkNameA(name) {
+        if (name != " - ") {
+            return "อ." + name
+        } else {
+            return ""
         }
     }
 

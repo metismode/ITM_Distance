@@ -220,6 +220,7 @@
     <Content Include="Views\Master\EditAmphur.cshtml" />
     <Content Include="Views\Master\FormProvince.cshtml" />
     <Content Include="Views\Master\FormAmphur.cshtml" />
+    <Content Include="Views\Distance\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Distance.Business\Distance.Business.csproj">

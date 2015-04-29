@@ -13,5 +13,10 @@ namespace Distance.MVC.Controllers
         {
             return View();
         }
+
+        public ActionResult Map()
+        {
+            return View();
+        }
     }
 }
