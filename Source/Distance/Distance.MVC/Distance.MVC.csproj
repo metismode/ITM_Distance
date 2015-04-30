@@ -48,6 +48,9 @@
     <Reference Include="DX.MVC">
       <HintPath>..\packages\DX.MVC.0.025\lib\net45\DX.MVC.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -128,6 +131,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Libraries\Excel\Excel.cs" />
+    <Compile Include="Libraries\Excel\ExcelToJson.cs" />
     <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\DropDownListModel.cs" />
     <Compile Include="Models\EmployeeListModel.cs" />
@@ -205,14 +210,13 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Shared\PartialDropdown.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="App_Data\Distance_Matrix_Template.xlsx" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Master\AddProvince.cshtml" />
     <Content Include="Views\Master\EditProvince.cshtml" />
@@ -220,7 +224,7 @@
     <Content Include="Views\Master\EditAmphur.cshtml" />
     <Content Include="Views\Master\FormProvince.cshtml" />
     <Content Include="Views\Master\FormAmphur.cshtml" />
-    <Content Include="Views\Distance\Map.cshtml" />
+    <Content Include="Views\Distance\ImportForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Distance.Business\Distance.Business.csproj">
