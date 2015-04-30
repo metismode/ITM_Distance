@@ -1,0 +1,24 @@
+﻿
+@model Distance.MVC.Models.EmployeeModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<form id="formprofile" class="form-horizontal">
+
+    @Html.Partial("FormProfile")
+
+    @Html.TextBoxFor(m => m.id, new { @class = "form-control", @hidden = "hidden" })
+
+    <input type="submit" id="submitprofile" style="display:none;" value="Submit" />
+
+</form>
+<script type="text/javascript" src="@Url.Content("/Scripts/scriptModal.js")"></script>
+<script>
+
+    $(".modal-dialog").width("50%");
+    $('.selectpicker').selectpicker();
+
+</script>

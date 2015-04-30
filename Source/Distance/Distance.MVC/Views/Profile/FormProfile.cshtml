@@ -1,0 +1,47 @@
+﻿@model Distance.MVC.Models.EmployeeModel
+
+
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Username<span style="color:red; font-weight: bold;">*</span> </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username", @maxlength = 30 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Password<span style="color:red; font-weight: bold;">*</span> </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @maxlength = 10 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">First Name </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name", @maxlength = 250 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Last Name </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name", @maxlength = 250 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Nickname </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.NickName, new { @class = "form-control", @placeholder = "Nickname", @maxlength = 250 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Email </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @maxlength = 250 })</div>
+
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label" for="textinput">Phone </label>
+    <div class="col-md-5">@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Phone", @maxlength = 250 })</div>
+
+</div>
+@*<div class="form-group">
+        <label class="col-sm-4 control-label" for="textinput">Status </label>
+        <div class="col-md-5">@Html.TextBoxFor(m => m.Status, new { @class = "form-control", @placeholder = "Detail", @maxlength = 250 })</div>
+
+    </div>*@
+
+
+
+

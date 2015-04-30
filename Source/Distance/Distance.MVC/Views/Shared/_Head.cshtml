@@ -28,6 +28,75 @@
     </div>
 </nav>
 
-@Scripts.Render("~/script")
+<div class="modal fade" id="myProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:85%">
+        <div class="modal-content">
 
+            <div class="modal-header" style="background-color:#d9edf7">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Save </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/script")
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/ProfileJS.js")"></script>
 @*<script type="text/javascript" src="@Url.Content("/Scripts/JS/DropDownProvince.js")"></script>*@
+
+<script>
+
+    var modalPopupProfile = $("#myProfile");
+    var modalPopupProfileTitleProfile = $("#myProfile div .modal-title")
+    var modalPopupProfileBodyProfile = $("#myProfile div .modal-body");
+    var modalPopupProfileFooterProfile = $("#myProfile div .modal-footer");
+    var modalActionProfile = "";
+
+    function myProfile(id) {
+
+       
+        modalActionProfile = "Profile";
+        modalPopupProfileTitleProfile[0].innerHTML = "My Profile";
+        modalPopupProfileBodyProfile[0].innerHTML = '';
+        var editempForm = $("<div>");
+        editempForm.load("@Url.Action("Edit", "Profile")", "id=" + id);
+        editempForm.appendTo(modalPopupProfileBodyProfile[0])
+
+
+        modalPopupProfile.on("show.bs.modal", function (e) {
+
+
+
+            $("#myModal button.btn-success").text("Save");
+            $("#myModal button.btn-danger").text("Cancel");
+
+        });
+
+        modalPopupProfile.modal({
+            backdrop: 'static'
+        });
+        
+        $("#myProfile button.btn-success").click(function () {
+        
+            switch (modalActionProfile) {
+
+                case "Profile":
+               
+                    SubmitBTN()
+                    break;
+
+            }
+        });
+
+    }
+
+</script>

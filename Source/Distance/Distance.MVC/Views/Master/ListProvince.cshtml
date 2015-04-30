@@ -100,7 +100,17 @@
                                 <td>@list.Name</td>
                                 <td>@list.Lat</td>
                                 <td>@list.Lon</td>
-                                <td>@list.Status</td>
+                                <td>
+                                @{if (list.Status == 1)
+                                {
+                                    <span class="label label-success">Active</span>
+                                }
+                                  else
+                                  {
+                                    <span class="label label-danger">Inactive</span>
+                                  }
+                                  }
+                                </td>
 
                             </tr>
                         }

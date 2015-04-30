@@ -48,6 +48,15 @@ namespace Distance.Service.Services
             return id;
         
         }
+        public int UpdateProfile(Employee model)
+        {
+
+            int id = DaoEmployee.UpdateProfile(model);
+            return id;
+
+        }
+
+        
 
         public Employee GetEmployee(int id)
         {

@@ -112,13 +112,13 @@
         </div>
         <p align="right">
             <button type="button" id="btncal" class="btn btn-success " value="Add" onclick="pushData()">
-                <span class="glyphicon glyphicon-plus"></span> Go
+                <span class="glyphicon glyphicon-plus"></span> Calculate Distance
             </button>
-            <button class="btn btn-info btn-xsm" title="Import Email" onclick="importClick()">
+            <button class="btn btn-info " title="Import Email" onclick="importClick()">
                 <span class="glyphicon glyphicon-import">
                 </span> Import Data
             </button>
-            <button class="btn btn-warning btn-xsm" title="Download File" onclick="location.href='@Url.Action("Download", "Distance")'">
+            <button class="btn btn-warning " title="Download File" onclick="location.href='@Url.Action("Download", "Distance")'">
                 <span class="glyphicon glyphicon-download-alt">
                 </span>Template
             </button>
@@ -766,26 +766,13 @@
 
                 for (var j = 0 ; j < destinations.length ; j++) {
 
-                    getLatLng(ori[i], function (tt) {
-
-                        console.log(tt)
-                    })
-                    
-                   
 
                     if (desp[j] == " - " && desa[j] == " - ") {
-
-                      
-                        var a
-
-                       
-
-                            console.log(a)
 
                             htmlstring += '<tr>'
                                    + '<td style="display:none;">' + des[j] + '</th>'
                                    + '<td>' + (j + 1) + '</td>'
-                                    + '<td>' + des[j] + '  ' + '<button class="btn btn-danger btn-xsm" onclick="Map1(' + '' + ',' + '' + ')" type="button">Map</button></td>'
+                                    + '<td>' + des[j] + '  ' + '<button class="btn btn-danger btn-xsm" onclick="Map1(' + getLatLong(ori[i], function (lat) { }) + ',' + getLatLong(des[j], function (lat) { }) + ')" type="button">Map</button></td>'
                                    + '<td>' + destinations[j] + '</td>'
                                    + '<td>' + results[j].distance.text + '</td>'
                                    + '<td>' + results[j].duration.text + '</td>'
@@ -842,44 +829,44 @@
 
     //}
 
-    function getLatLng(address, callback) {
-        var codedAddress;
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                codedAddress = results[0].geometry.location;
-                console.log("codedAddress 1 = " + codedAddress);
-            } else {
-                alert("There was a problem with the map");
-            }
-            console.log("codedAddress 2 = " + codedAddress);
-
-            callback(codedAddress);
-        });
-    }
-
-    //function getLatLong(address, callback) {
-
+    //function getLatLng(address, callback) {
+    //    var codedAddress;
     //    var geocoder = new google.maps.Geocoder();
-    //    geocoder.geocode({
-    //        address: address,
-    //        region: 'no'
-    //    },
-	//	    function (results, status) {
-	//	        if (status.toLowerCase() == 'ok') {
-	//	            // Get center
-	//	            var coords = new google.maps.LatLng(
-	//					results[0]['geometry']['location'].lat(),
-	//					results[0]['geometry']['location'].lng()
-	//				);
-	//	            callback(coords.lat() + ',' + coords.lng())
-		           
-	//	        }
-	//	    }
-	//	);
+    //    geocoder.geocode({ 'address': address }, function (results, status) {
+    //        if (status == google.maps.GeocoderStatus.OK) {
+    //            codedAddress = results[0].geometry.location;
+    //            console.log("codedAddress 1 = " + codedAddress);
+    //        } else {
+    //            alert("There was a problem with the map");
+    //        }
+    //        console.log("codedAddress 2 = " + codedAddress);
 
-
+    //        callback(codedAddress);
+    //    });
     //}
+
+    function getLatLong(address, callback) {
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            address: address,
+            region: 'no'
+        },
+		    function (results, status) {
+		        if (status.toLowerCase() == 'ok') {
+		            // Get center
+		            var coords = new google.maps.LatLng(
+						results[0]['geometry']['location'].lat(),
+						results[0]['geometry']['location'].lng()
+					);
+		            callback(coords.lat() + ',' + coords.lng())
+		           
+		        }
+		    }
+		);
+
+
+    }
 
     function checkNameP(name) {
         if (name != " - ") {

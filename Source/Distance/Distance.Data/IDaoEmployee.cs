@@ -15,5 +15,7 @@ namespace Distance.Data
         Employee GetEmployee(int id);
         int InsertEmployee(Employee model);
         int UpdateEmployee(Employee model);
+        int UpdateProfile(Employee model);
+        
     }
 }

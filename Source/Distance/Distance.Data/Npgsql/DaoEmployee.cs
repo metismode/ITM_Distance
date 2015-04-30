@@ -86,7 +86,20 @@ namespace Distance.Data.Npgsql
             return db.Update(sql, Take(model)).AsInt();
         }
 
+        public int UpdateProfile(Employee model)
+        {
+            string sql = " UPDATE user_detail " +
+                        " SET  " +
+                        "password=@password, " +
+                        "firstname=@firstname , " +
+                        "lastname=@lastname, " +
+                        "nickname=@nickname , " +
+                        "phone=@phone, " +
+                        "email=@email  " +
+                        " WHERE id =@id ";
 
+            return db.Update(sql, Take(model)).AsInt();
+        }
 
         static Func<IDataReader, Employee> MakeList = reader => new Employee
         {

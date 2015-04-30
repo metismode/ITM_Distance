@@ -15,6 +15,10 @@ namespace Distance.Service.IServices
 
         int UpdateEmployee(Employee model);
 
+        int UpdateProfile(Employee model);
+
+        
+
         Employee GetEmployee(int id);
     
     }

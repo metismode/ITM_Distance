@@ -128,6 +128,7 @@
     <Compile Include="Controllers\DropDown\DropDownController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,6 +178,7 @@
     <Content Include="Scripts\JS\fileinput.js" />
     <Content Include="Scripts\JS\jquery-2.1.3.min.js" />
     <Content Include="Scripts\JS\moment.js" />
+    <Content Include="Scripts\JS\ProfileJS.js" />
     <Content Include="Scripts\JS\ProvinceJS.js" />
     <Content Include="Scripts\scriptModal.js" />
     <Content Include="Web.config" />
@@ -225,6 +227,8 @@
     <Content Include="Views\Master\FormProvince.cshtml" />
     <Content Include="Views\Master\FormAmphur.cshtml" />
     <Content Include="Views\Distance\ImportForm.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\FormProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Distance.Business\Distance.Business.csproj">
