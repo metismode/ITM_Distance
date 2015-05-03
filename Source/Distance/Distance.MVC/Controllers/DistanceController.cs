@@ -1,4 +1,6 @@
-﻿using DXTms;
+﻿using Distance.MVC.Models;
+using DXTms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,9 @@ namespace Distance.MVC.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+
+
+       
 
     }
 }

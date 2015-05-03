@@ -18,6 +18,7 @@ namespace Distance.Service.Dropdown
         static readonly IProvinceDao ProvinceDao = factory.ProvinceDao;
         static readonly IAmphurDao AmphurDao = factory.AmphurDao;
         static readonly ITambonDao TambonDao = factory.TambonDao;
+        static readonly IRoleDao RoleDao = factory.RoleDao;
 
         public List<DDStatus> GetStatusList()
         {
@@ -34,6 +35,10 @@ namespace Distance.Service.Dropdown
         public List<DDTambon> GetTambonList(int id)
         {
             return TambonDao.GetTambonList(id);
+        }
+        public List<DDRole> GetRoleList()
+        {
+            return RoleDao.GetRoleList();
         }
     }
 }

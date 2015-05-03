@@ -49,7 +49,7 @@
                                 </div>
 
                                 <p align="right">
-                                    <button type="button" class="btn btn-success " value="Add" onclick="addOrigin()">
+                                    <button type="button" id="btnaddO" class="btn btn-success " value="Add" onclick="addOrigin()">
                                         <span class="glyphicon glyphicon-plus"></span> Add
                                     </button>
 
@@ -91,7 +91,7 @@
                                     </span>
                                 </div>
                                 <p align="right">
-                                    <button type="button" class="btn btn-success" value="Add" onclick="addDestination()">
+                                    <button type="button" id="btnaddD" class="btn btn-success" value="Add" onclick="addDestination()">
                                         <span class="glyphicon glyphicon-plus"></span> Add
                                     </button>
 
@@ -352,19 +352,19 @@
             google.maps.event.addDomListener(window, 'load', initialize(a, b, c, d));
             google.maps.event.trigger(map, 'resize');
         });
-        
+
         setTimeout(function () {
             modalMap.modal();
         }, 1000);
 
     }
-    
+
     var countO = 0;
     var countD = 0;
 
     $(function () {
 
-      
+
         $('.selectpicker').selectpicker();
 
         countO = $('#addOrigin tbody tr').length;
@@ -372,11 +372,11 @@
         $("#lblOrigin").html(countO);
         $("#lblDestination").html(countD);
         checkInput();
-       
+
         $('input[type=radio][name=rdo]').click(function () {
             var related_class = $(this).val();
             $('.' + related_class).prop('disabled', false);
-            
+
             $('input[type=radio][name=rdo]').not(':checked').each(function () {
                 var other_class = $(this).val();
                 $('.' + other_class).prop('disabled', true);
@@ -387,13 +387,13 @@
         $('input[type=radio][name=rdo2]').click(function () {
             var related_class = $(this).val();
             $('.' + related_class).prop('disabled', false);
-            
+
             $('input[type=radio][name=rdo2]').not(':checked').each(function () {
                 var other_class = $(this).val();
                 $('.' + other_class).prop('disabled', true);
                 $("input[name='destination']").val("")
             });
-           
+
         });
 
 
@@ -562,7 +562,7 @@
             }else {
                 alert("กรอกข้อมูล")
             }
-        } 
+        }
         if (checkradio == "radio22") {
             if (latlonP != null && latlonA == null) {
 
@@ -621,7 +621,7 @@
             $("select[name='ProvinceId2']").val("");
             $("select[name='ProvinceId2']").trigger("change");
         }
-        
+
      }
 
 
@@ -637,7 +637,7 @@
             $("#lblDestination").html(countD);
         }
         checkInput()
-      
+
     }
 
     function checkInput() {
@@ -650,8 +650,21 @@
             $("button#btnexport").prop('disabled', true);
         }
 
+        if (countO > 4) {
+            $("button#btnaddO").prop('disabled', true);
 
+        } else {
+            $("button#btnaddO").prop('disabled', false);
+        }
+        if (countD > 4) {
+            $("button#btnaddD").prop('disabled', true);
+
+        } else {
+            $("button#btnaddD").prop('disabled', false);
+        }
     }
+
+
 
 
     var ori = [];
@@ -662,34 +675,34 @@
     var desa = [];
 
     function pushData() {
-       
+
         ori = [];
         des = [];
         orip = [];
         oria = [];
         desp = [];
         desa = [];
-       
+
         try {
 
             var bodyAddO = $("#tblO tbody");
             bodyAddO.find("tr").each(function (index, value) {
-               
+
                     ori.push($(value).find("td[data-origin]").html());
                     orip.push($(value).find("td[data-province]").html());
                     oria.push($(value).find("td[data-amphur]").html());
-               
+
             });
 
             var bodyAddD = $("#tblD tbody");
             bodyAddD.find("tr").each(function (index, value) {
-                
+
                     des.push($(value).find("td[data-destination]").html());
                     desp.push($(value).find("td[data-province]").html());
                     desa.push($(value).find("td[data-amphur]").html());
             });
 
-           
+
             calculateDistances(ori, des)
         }
         catch (e) {
@@ -731,7 +744,7 @@
                 var results = response.rows[i].elements;
 
                 if (orip[i] == " - " && oria[i] == " - ") {
-                   
+
                     htmlstring += '<center><div class="table-responsive"><table border="1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default" style="width: 95%">'
                               + '<tr class="success">'
                                + '<th style="display:none;">' + ori[i] + '</th>'
@@ -745,7 +758,7 @@
                              + '<th style="width: 75px; text-align:center">Distance (km)</th>'
                              + '<th style="width: 75px; text-align:center">Duration (hr)</th>'
                              + '</tr>';
-                   
+
 
                 } else {
                     htmlstring += '<center><div class="table-responsive"><table border="1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default" style="width: 95%">'
@@ -761,7 +774,7 @@
                               + '<th style="width: 75px; text-align:center">Distance (km)</th>'
                               + '<th style="width: 75px; text-align:center">Duration (hr)</th>'
                               + '</tr>';
-                   
+
                 }
 
                 for (var j = 0 ; j < destinations.length ; j++) {
@@ -777,9 +790,9 @@
                                    + '<td>' + results[j].distance.text + '</td>'
                                    + '<td>' + results[j].duration.text + '</td>'
                                    + '</tr>';
-                       
 
-                       
+
+
                     } else {
                         htmlstring += '<tr>'
                                + '<td style="display:none;">' + des[j] + '</th>'
@@ -792,27 +805,27 @@
 
                     }
 
-                  
-                   
+
+
 
                 }
             }
 
-          
+
 
                 htmlstring += '</table></div></center>';
 
                 var outputDiv = document.getElementById('outputDiv');
                 outputDiv.innerHTML = htmlstring;
-                
-          
 
-          
+
+
+
         }
     }
 
     //function getLatLong(address) {
-       
+
     //    $.ajax({
     //        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
     //        type: "POST",
@@ -820,7 +833,7 @@
     //            console.log(res.results[0].geometry.location.lat);
     //            console.log(res.results[0].geometry.location.lng);
     //            return res.results[0].geometry.location.lat + ',' + res.results[0].geometry.location.lng
- 
+
     //        },
     //        error: function () {
     //            getLatLong(address);
@@ -860,7 +873,7 @@
 						results[0]['geometry']['location'].lng()
 					);
 		            callback(coords.lat() + ',' + coords.lng())
-		           
+
 		        }
 		    }
 		);
@@ -883,6 +896,8 @@
         }
     }
 
+
+   
 
 </script>
 

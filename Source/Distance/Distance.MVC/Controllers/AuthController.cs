@@ -67,7 +67,8 @@ namespace Distance.MVC.Controllers
                     {
                         Session["UserIdAuth"] = userData.UID;
                         Session["UsernameAuth"] = userData.Username;
-                       
+                        Session["Role"] = userData.Role;
+
                         ViewBag.SigninUserNameLog = authModel.Username;
                         ViewBag.SigninStatusLog = "Success";
 

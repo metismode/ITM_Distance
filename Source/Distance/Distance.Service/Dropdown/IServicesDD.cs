@@ -17,6 +17,6 @@ namespace Distance.Service.Dropdown
 
         List<DDTambon> GetTambonList(int id);
 
-       
+        List<DDRole> GetRoleList();
     }
 }

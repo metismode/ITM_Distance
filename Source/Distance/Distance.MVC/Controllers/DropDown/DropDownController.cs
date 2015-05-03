@@ -31,7 +31,9 @@ namespace Distance.MVC.Controllers.DropDown
             Mapper.CreateMap<DDTambon, DropDownDataModel>()
                   .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.LatLon))
                   .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.Name));
-          
+            Mapper.CreateMap<DDRole, DropDownDataModel>()
+                   .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.id))
+                   .ForMember(dest => dest.Display, opt => opt.MapFrom(src => src.name));
         }
         public DropDownController()
             : this(new Service.Dropdown.ServicesDD())
@@ -170,5 +172,22 @@ namespace Distance.MVC.Controllers.DropDown
 
             return ShowDropDownList(dropDownListModel);
         }
+
+        public ActionResult RoleList(DropDownListModel dropDownListModel)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var t = ddservice.GetRoleList();
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDRole>, List<DropDownDataModel>>(t);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Role ---";
+          
+            return ShowDropDownList(dropDownListModel);
+        }
+
     }
 }

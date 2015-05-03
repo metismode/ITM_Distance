@@ -140,10 +140,12 @@
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\MasterDataListModel.cs" />
     <Compile Include="Models\MasterDataModel.cs" />
+    <Compile Include="Models\OriDesModel.cs" />
     <Compile Include="Models\UserAuthModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\IMG\loading.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS\bootstrap-glyphicons.css" />

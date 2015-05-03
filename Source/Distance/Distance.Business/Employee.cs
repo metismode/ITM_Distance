@@ -24,6 +24,8 @@ namespace Distance.Business
 
         public string Phone { get; set; }
 
+        public int Role { get; set; }
+
         public int Status { get; set; }
 
       

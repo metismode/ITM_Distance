@@ -10,6 +10,7 @@ namespace Distance.Data
     public interface IDDDaoFactory
     {
         IStatusDao StatusDao { get; }
+        IRoleDao RoleDao { get; }
         IProvinceDao ProvinceDao { get; }
         IAmphurDao AmphurDao { get; }
         ITambonDao TambonDao { get; }

@@ -55,6 +55,16 @@
 
 <script>
 
+    function processing(status) {
+        if (status == true) {
+            $("#processing-modal").modal("show", { backdrop: 'static' });
+
+        } else {
+            $("#processing-modal").modal("hide");
+        }
+    }
+
+
     var modalPopupProfile = $("#myProfile");
     var modalPopupProfileTitleProfile = $("#myProfile div .modal-title")
     var modalPopupProfileBodyProfile = $("#myProfile div .modal-body");

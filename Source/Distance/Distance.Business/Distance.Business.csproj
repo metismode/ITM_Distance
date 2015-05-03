@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Dropdown\DDAmphur.cs" />
     <Compile Include="Dropdown\DDProvice.cs" />
+    <Compile Include="Dropdown\DDRole.cs" />
     <Compile Include="Dropdown\DDStatus.cs" />
     <Compile Include="Dropdown\DDTambon.cs" />
     <Compile Include="Employee.cs" />

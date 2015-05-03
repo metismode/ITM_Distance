@@ -36,7 +36,7 @@ function Save($form) {
 
     var posting = $.post(url + "?" + (new Date()).getTime(), {
         Id: $form.find("input[name='id']").val(),
-     
+        UserName: $form.find("input[name='UserName']").val(),
         Password: $form.find("input[name='Password']").val(),
         FirstName: $form.find("input[name='FirstName']").val(),
         LastName: $form.find("input[name='LastName']").val(),

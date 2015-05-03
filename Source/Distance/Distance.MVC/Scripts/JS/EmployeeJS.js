@@ -55,6 +55,7 @@ function Save($form) {
         NickName: $form.find("input[name='NickName']").val(),
         Email: $form.find("input[name='Email']").val(),
         Phone: $form.find("input[name='Phone']").val(),
+        Role: $form.find("select[name='RoleId']").val(),
         Status: $form.find("select[name='StatusId']").val()
     });
 

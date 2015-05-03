@@ -22,6 +22,7 @@ namespace Distance.Data.Npgsql
                             "nickname, " +
                             "email, " +
                             "phone, " +
+                            "role, " +
                             "status " +
                             "FROM user_detail ";
 
@@ -41,7 +42,7 @@ namespace Distance.Data.Npgsql
 
         public Employee GetEmployee(int id)
         {
-            string sql = "select id,username,password,firstname,lastname,nickname,phone,status,email from user_detail WHERE id = " + id;
+            string sql = "select id,username,password,firstname,lastname,nickname,phone,role,status,email from user_detail WHERE id = " + id;
 
             return db.Read(sql, Make).FirstOrDefault();
         }
@@ -55,7 +56,7 @@ namespace Distance.Data.Npgsql
                         " password," +
                         " firstname, lastname," +
                         " nickname, " +
-                        " phone," +
+                        " phone,role," +
                         " status," +
                         " email )" +
                        " VALUES (" +
@@ -63,7 +64,7 @@ namespace Distance.Data.Npgsql
                        " @password," +
                        " @firstname ,@lastname," +
                        " @nickname  ," +
-                       " @phone," +
+                       " @phone,@role," +
                        " @status," +
                        " @email )";
 
@@ -78,7 +79,7 @@ namespace Distance.Data.Npgsql
                         "firstname=@firstname , " +
                         "lastname=@lastname, " +
                         "nickname=@nickname , " +
-                        "phone=@phone, " +
+                        "phone=@phone,role=@role, " +
                         "status=@status, " +
                         "email=@email  " +
                         " WHERE id =@id ";
@@ -110,6 +111,7 @@ namespace Distance.Data.Npgsql
             NickName = reader["nickname"].AsString(),
             Email = reader["email"].AsString(),
             Phone = reader["phone"].AsString(),
+            Role = reader["role"].AsInt(),
             Status = reader["status"].AsInt()
            
         };
@@ -123,6 +125,7 @@ namespace Distance.Data.Npgsql
             NickName = reader["nickname"].AsString(),
             Email = reader["email"].AsString(),
             Phone = reader["phone"].AsString(),
+            Role = reader["role"].AsInt(),
             Status = reader["status"].AsInt()
             
         };
@@ -137,6 +140,7 @@ namespace Distance.Data.Npgsql
                 new NpgsqlParameter("@lastname",DbType.String),employee.LastName,
                 new NpgsqlParameter("@nickname",DbType.String),employee.NickName,
                 new NpgsqlParameter("@phone",DbType.String),employee.Phone,
+                new NpgsqlParameter("@role",DbType.Int32),employee.Role,
                 new NpgsqlParameter("@status",DbType.Int32),employee.Status,
                 new NpgsqlParameter("@email",DbType.String),employee.Email
             };

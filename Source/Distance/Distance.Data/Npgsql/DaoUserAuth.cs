@@ -17,12 +17,13 @@ namespace Distance.Data.Npgsql
         {
             try
             {
-                //string sql = "SELECT * FROM user_detail WHERE username = @username";
-
+              
                 string sql = "SELECT " +
                                 "ud.id AS id,  " +
                                 "ud.username AS username, " +
-                                "ud.password AS password " +
+                                "ud.password AS password, " +
+                                "ud.role AS role " +
+                                
                                
                                 " FROM user_detail ud " +
 
@@ -44,6 +45,7 @@ namespace Distance.Data.Npgsql
             UID = reader["id"].AsId(),
             Username = reader["username"].AsString(),
             Password = reader["password"].AsString(),
+            Role = reader["role"].AsInt()
            
         };
 
