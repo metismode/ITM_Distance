@@ -124,6 +124,22 @@ namespace Distance.MVC.Controllers.DropDown
             return ShowDropDownList(dropDownListModel);
         }
 
+        public ActionResult Province(DropDownListModel dropDownListModel)
+        {
+            //----------------Load Data Dropdown-------------------------------
+
+            var p = ddservice.GetProvince();
+
+            //----------------------------------------------------------
+
+            List<DropDownDataModel> dataModelList = Mapper.Map<List<DDProvince>, List<DropDownDataModel>>(p);
+
+            dropDownListModel.List = dataModelList;
+            dropDownListModel.OptionalText = "--- Select Province ---";
+
+            return ShowDropDownList(dropDownListModel);
+        }
+
 
         public ActionResult AmphurList2(DropDownListModel dropDownListModel, string ProvinceId = "-1")
         {

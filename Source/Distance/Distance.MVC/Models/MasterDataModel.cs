@@ -12,7 +12,9 @@ namespace Distance.MVC.Models
 
         public int PID { get; set; }
 
-        [Required(ErrorMessage = "First name field is required.")]
+        public string NameP { get; set; }
+
+        [Required(ErrorMessage = "Name field is required.")]
         public string Name { get; set; }
 
         [Display(Name="Latitude")]

@@ -51,8 +51,8 @@
                         <div class="col-md-15">
                             <select data-size="5" data-live-search="true" name="filterData" id="dx-dropdown" class="form-control selectpicker" data-style="btn-success">
                                 <option value="">--- Fillter All ---</option>
-                                <option data-subtext="" @(filterData.ToString() == "firstname_en" ? "selected" : "") value="firstname_en">First Name(EN)</option>
-                                <option data-subtext="" @(filterData.ToString() == "email_company" ? "selected" : "") value="email_company">E-mail</option>
+                                <option data-subtext="" @(filterData.ToString() == "firstname" ? "selected" : "") value="firstname">First Name</option>
+                                <option data-subtext="" @(filterData.ToString() == "email" ? "selected" : "") value="email">E-mail</option>
                                 <option data-subtext="" @(filterData.ToString() == "phone" ? "selected" : "") value="phone">Telephone</option>
                             </select>
                         </div>
@@ -259,6 +259,13 @@
         }
 
     });
+
+    $(document).ready(function () {
+        $(".searchinput").keyup(function () {
+            $(this).next().toggle(Boolean($(this).val()));
+        });
+    });
+
 
 
 </script>

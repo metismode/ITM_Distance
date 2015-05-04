@@ -10,5 +10,6 @@ namespace Distance.Data.Dropdown
     public interface IProvinceDao
     {
         List<DDProvince> GetProvinceList();
+        List<DDProvince> GetProvince();
     }
 }

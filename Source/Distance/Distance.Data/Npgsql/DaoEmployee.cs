@@ -26,17 +26,79 @@ namespace Distance.Data.Npgsql
                             "status " +
                             "FROM user_detail ";
 
+          
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+
+                sql += " WHERE ";
+
+                if (filterData.Equals("firstname"))
+                {
+                    sql += "firstname LIKE @keyword ";
+                }
+                else if (filterData.Equals("email"))
+                {
+                    sql += " email LIKE @keyword ";
+                }
+                else if (filterData.Equals("phone"))
+                {
+                    sql += " phone LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (firstname LIKE @keyword OR email LIKE @keyword OR phone LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
+
+
             sql += " ".OrderBy(sortExpresstion).Limit(limitExpression).Offset(offsetExpression);
 
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
 
-            return db.Read(sql, MakeList).ToList();
+            return db.Read(sql, MakeList, paramsData).ToList();
 
         }
 
         public int GetCount(string keyword = null, string filterData = null, int status = 0)
         {
-            string SQL = "SELECT count(*) FROM user_detail ";
-            return db.Scalar(SQL).AsInt();
+            string sql = "SELECT count(*) FROM user_detail ";
+
+
+         
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                sql += " WHERE ";
+
+                if (filterData.Equals("firstname"))
+                {
+                    sql += "firstname LIKE @keyword ";
+                }
+                else if (filterData.Equals("email"))
+                {
+                    sql += " email LIKE @keyword ";
+                }
+                else if (filterData.Equals("phone"))
+                {
+                    sql += " phone LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (firstname LIKE @keyword OR email LIKE @keyword OR phone LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
+
+            return db.Scalar(sql, paramsData).AsInt();
         }
 
 

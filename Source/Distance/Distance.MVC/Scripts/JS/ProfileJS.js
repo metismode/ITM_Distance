@@ -15,8 +15,25 @@
                 label: "Save",
                 className: "btn-success",
                 callback: function () {
-                    var $form = $('#formprofile');
-                    Save($form)
+
+
+                    var fistInput = document.getElementById("pass11").value;
+                    var secondInput = document.getElementById("pass22").value;
+                    var n = fistInput.localeCompare(secondInput);
+
+                    if (n == 0) {
+
+                        var $form = $('#formprofile');
+                        Save($form)
+                    }
+                    else {
+                        ShowTextMessageAlertWarning("password not match", $("#myModal"), function () {
+                            modalPopup.show();
+                        });
+                    }
+
+
+                   
                 }
             }
         }

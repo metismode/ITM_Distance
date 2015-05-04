@@ -12,6 +12,8 @@ namespace Distance.Business
 
         public int PID { get; set; }
 
+        public string NameP { get; set; }
+
         public string Name { get; set; }
 
         public string Lat { get; set; }

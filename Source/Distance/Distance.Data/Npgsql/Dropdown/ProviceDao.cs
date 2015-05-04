@@ -20,9 +20,23 @@ namespace Distance.Data.Npgsql.Dropdown
             return db.Read(sql, Make).ToList();
         }
 
+        public List<DDProvince> GetProvince()
+        {
+            string sql = "SELECT id,name,CONCAT(lon,',',lat) as ll " +
+                         "FROM master_province";
+            return db.Read(sql, Make2).ToList();
+        }
+
         static Func<IDataReader, DDProvince> Make = reader => new DDProvince
         {
             LatLon = reader["id"].AsString() + "/" + reader["ll"].AsString(),
+            Name = reader["name"].AsString()
+
+        };
+
+        static Func<IDataReader, DDProvince> Make2 = reader => new DDProvince
+        {
+            LatLon = reader["id"].AsString(),
             Name = reader["name"].AsString()
 
         };

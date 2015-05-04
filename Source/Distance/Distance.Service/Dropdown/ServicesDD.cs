@@ -28,6 +28,10 @@ namespace Distance.Service.Dropdown
         {
             return ProvinceDao.GetProvinceList();
         }
+        public List<DDProvince> GetProvince()
+        {
+            return ProvinceDao.GetProvince();
+        }
         public List<DDAmphur> GetAmphurList(int id)
         {
             return AmphurDao.GetAmphurList(id);

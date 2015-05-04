@@ -3,6 +3,7 @@ using Distance.Business;
 using Distance.MVC.Models;
 using Distance.Service.IServices;
 using Distance.Service.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Distance.MVC.Controllers
             }
         }
 
-        public ActionResult ListAmphur(string sort = "\"id\"", string order = "ASC", int page = 1, int pageSize = 10, string keyword = null, string filterData = null, int status = 0)
+        public ActionResult ListAmphur(string sort = "idA", string order = "ASC", int page = 1, int pageSize = 10, string keyword = null, string filterData = null, int status = 0)
         {
             try
             {
@@ -191,6 +192,15 @@ namespace Distance.MVC.Controllers
                 return Content(e.Message);
             }
 
+        }
+
+        public ActionResult Load(int id)
+        {
+            var dataEmp = service.GetAmphur(id);
+
+            var empModel = Mapper.Map<Master, MasterDataModel>(dataEmp);
+
+            return Content(JsonConvert.SerializeObject(empModel));
         }
 
         public ActionResult EditAmphur(int id)

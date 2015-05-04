@@ -22,21 +22,70 @@ namespace Distance.Data.Npgsql
                             "status " +
                             "FROM master_province ";
 
-            sql += " ".OrderBy(sortExpresstion).Limit(limitExpression).Offset(offsetExpression);
-            return db.Read(sql, MakeListP).ToList();
-        }
-        public List<Master> GetAmphurList(string sortExpresstion = "\"id\" ASC", string limitExpression = "", string offsetExpression = "0", string keyword = null, string filterData = null, int status = 0)
-        {
-            string sql = "SELECT id, " +
-                            "pid, " +
-                            "name, " +
-                            "lat, " +
-                            "lon, " +
-                            "status " +
-                            "FROM master_amphur ";
+            if (!string.IsNullOrEmpty(keyword))
+            {
+
+                sql += " WHERE ";
+
+                if (filterData.Equals("name"))
+                {
+                    sql += "name LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (name LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
 
             sql += " ".OrderBy(sortExpresstion).Limit(limitExpression).Offset(offsetExpression);
-            return db.Read(sql, MakeListA).ToList();
+
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
+
+            return db.Read(sql, MakeListP, paramsData).ToList();
+        }
+        public List<Master> GetAmphurList(string sortExpresstion = "\"idA\" ASC", string limitExpression = "", string offsetExpression = "0", string keyword = null, string filterData = null, int status = 0)
+        {
+            string sql = "SELECT ma.id as idA,mp.name as nameP,ma.name as nameA, " +
+                            "pid, " +
+                            "ma.lat as latA, " +
+                            "ma.lon as lonA, " +
+                            "ma.status as statusA " +
+                            "FROM master_amphur ma " +
+                            "LEFT JOIN master_province mp ON ma.pid = mp.id ";
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+
+                sql += " WHERE ";
+
+                if (filterData.Equals("nameP"))
+                {
+                    sql += "mp.name LIKE @keyword ";
+                }
+                else if (filterData.Equals("nameA"))
+                {
+                    sql += " ma.name LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (mp.name LIKE @keyword OR ma.name LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
+
+
+            sql += " ".OrderBy(sortExpresstion).Limit(limitExpression).Offset(offsetExpression);
+
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
+
+            return db.Read(sql, MakeListA, paramsData).ToList();
         }
         public List<Master> GetTambonList(string sortExpresstion = "\"id\" ASC", string limitExpression = "", string offsetExpression = "0", string keyword = null, string filterData = null, int status = 0)
         {
@@ -53,13 +102,62 @@ namespace Distance.Data.Npgsql
 
         public int GetCountP(string keyword = null, string filterData = null, int status = 0)
         {
-            string SQL = "SELECT count(*) FROM master_province ";
-            return db.Scalar(SQL).AsInt();
+            string sql = "SELECT count(*) FROM master_province ";
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+
+                sql += " WHERE ";
+
+                if (filterData.Equals("name"))
+                {
+                    sql += "name LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (name LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
+
+            return db.Scalar(sql, paramsData).AsInt();
         }
         public int GetCountA(string keyword = null, string filterData = null, int status = 0)
         {
-            string SQL = "SELECT count(*) FROM master_amphur ";
-            return db.Scalar(SQL).AsInt();
+            string sql = "SELECT count(*) FROM master_amphur ma ";
+
+           sql += "LEFT JOIN master_province mp ON ma.pid = mp.id ";
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+
+                sql += " WHERE ";
+
+                if (filterData.Equals("nameP"))
+                {
+                    sql += "mp.name LIKE @keyword ";
+                }
+                else if (filterData.Equals("nameA"))
+                {
+                    sql += " ma.name LIKE @keyword ";
+                }
+                else
+                {
+                    sql += " (mp.name LIKE @keyword OR ma.name LIKE @keyword) ";
+                }
+                keyword = keyword.Trim();
+            }
+
+            object[] paramsData = {
+                                  new NpgsqlParameter("@keyword", DbType.String), '%' + keyword + '%'
+                                  };
+
+            return db.Scalar(sql, paramsData).AsInt();
+
         }
         public int GetCountT(string keyword = null, string filterData = null, int status = 0)
         {
@@ -165,12 +263,13 @@ namespace Distance.Data.Npgsql
 
         static Func<IDataReader, Master> MakeListA = reader => new Master
         {
-            Id = reader["id"].AsInt(),
+            Id = reader["idA"].AsInt(),
             PID = reader["pid"].AsInt(),
-            Name = reader["name"].AsString(),
-            Lat = reader["lat"].AsDouble().ToString(),
-            Lon = reader["lon"].AsDouble().ToString(),
-            Status = reader["status"].AsInt()
+            NameP = reader["nameP"].AsString(),
+            Name = reader["nameA"].AsString(),
+            Lat = reader["latA"].AsDouble().ToString(),
+            Lon = reader["lonA"].AsDouble().ToString(),
+            Status = reader["statusA"].AsInt()
           
         };
 
@@ -190,6 +289,8 @@ namespace Distance.Data.Npgsql
             return new object[]{
                 new NpgsqlParameter("@id",DbType.Int32),master.Id,
                 new NpgsqlParameter("@pid",DbType.Int32),master.PID,
+
+                new NpgsqlParameter("@nameP",DbType.String),master.NameP,
                 new NpgsqlParameter("@name",DbType.String),master.Name,
                 new NpgsqlParameter("@lat",DbType.Double),Convert.ToDouble(master.Lat),                
                 new NpgsqlParameter("@lon",DbType.Double),Convert.ToDouble(master.Lon),
