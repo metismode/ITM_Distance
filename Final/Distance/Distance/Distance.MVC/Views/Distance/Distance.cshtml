@@ -1,0 +1,912 @@
+﻿@{
+    ViewBag.Title = "Distance";
+}
+
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/DropDownProvince.js")"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/DropDownProvince2.js")"></script>
+
+
+<ul class="breadcrumb">
+    <li class="text-default-bold">  <i class="glyphicon glyphicon-map-marker"></i> Distance Matrix</li>
+    <i class="glyphicon glyphicon-chevron-right"></i>
+    <li class="text-default-bold"> <a href="@Url.Action("Distance", "Distance", null)"><i class="glyphicon glyphicon-map-marker"></i> Distance</a></li>
+</ul>
+
+
+
+<div class="panel panel-success">
+    <div class="panel-body">
+        <br /><br />
+        <div style="margin-left:5px; margin-right:5px; margin-top:-15px;">
+            <div style="width: 100%">
+                <div style=" float: left; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Origin</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo" value="radio1" checked="checked">
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" id="txtorigin" name="origin" placeholder="e.g. latitude,longitude ,keyword" class="radio1 text-info form-control" maxlength="30" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo" value="radio2">
+                                </div>
+                                <div class="col-lg-4">
+                                    @Html.Action("ProvinceList", "DropDown", new { SelectedProperty = "ProvinceId", CSSClass = "form-control", HasSearch = "true" })
+                                </div>
+                                <div class="col-lg-4">
+                                    <span id="DDAmphur">
+                                        @Html.Action("AmphurList", "DropDown", new { SelectedProperty = "AmphurId", CSSClass = "form-control selectpicker" })
+                                    </span>
+                                </div>
+
+                                <p align="right">
+                                    <button type="button" id="btnaddO" class="btn btn-success " value="Add" onclick="addOrigin()">
+                                        <span class="glyphicon glyphicon-plus"></span> Add
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%">
+                <div style=" float: right; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Destination</h3>
+                        </div>
+                        <div class="panel-body ">
+
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo2" value="radio11" checked="checked">
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" id="txtdestination" name="destination" placeholder="e.g. latitude,longitude ,keyword" class="radio11 text-info form-control" maxlength="30" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <div class="col-lg-1">
+                                    <input type="radio" name="rdo2" value="radio22">
+                                </div>
+                                <div class="col-lg-4">
+                                    @Html.Action("ProvinceList2", "DropDown", new { SelectedProperty = "ProvinceId2", CSSClass = "form-control", HasSearch = "true" })
+                                </div>
+                                <div class="col-lg-4">
+                                    <span id="DDAmphur2">
+                                        @Html.Action("AmphurList2", "DropDown", new { SelectedProperty = "AmphurId2", CSSClass = "form-control selectpicker" })
+                                    </span>
+                                </div>
+                                <p align="right">
+                                    <button type="button" id="btnaddD" class="btn btn-success" value="Add" onclick="addDestination()">
+                                        <span class="glyphicon glyphicon-plus"></span> Add
+                                    </button>
+
+                                </p>
+
+                            </div>
+
+
+                            @*<div class="col-lg-4">
+                            <span id="DDTambon">
+                                @Html.Action("TambonList", "DropDown", new { SelectedProperty = "TambonId", CSSClass = "form-control selectpicker" })
+                            </span>
+                        </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p align="right">
+            <button type="button" id="btncal" class="btn btn-success " value="Add" onclick="pushData()">
+                <span class="glyphicon glyphicon-plus"></span> Calculate Distance
+            </button>
+            <button class="btn btn-info " title="Import Email" onclick="importClick()">
+                <span class="glyphicon glyphicon-import">
+                </span> Import Data
+            </button>
+            <button class="btn btn-warning " title="Download File" onclick="location.href='@Url.Action("Download", "Distance")'">
+                <span class="glyphicon glyphicon-download-alt">
+                </span>Template
+            </button>
+
+        </p><br />
+
+        <div style="margin-left:5px; margin-right:5px; margin-top:-15px;">
+            <div style="width: 100%">
+                <div style=" float: left; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Origin</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;Total Origin : <label id="lblOrigin">0</label>
+
+                            <div style="float:right;">
+                                @*<p align="right">*@
+                                <button type="button" value="Clear" onclick="Clean(0)" class="btn btn-danger btn-xsm" title="Clear">
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                @*</p>*@
+                            </div>
+                            <br />
+                            <br />
+
+                            <table id="tblO" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                                <thead>
+                                    <tr class="alert-info">
+
+                                        <td>Province</td>
+                                        <td>Amphur</td>
+                                        <td>LatLon / Keyword</td>
+                                        <td>Aciton</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyorigin"></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%">
+                <div style=" float: right; width: 49%">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Destination</h3>
+                        </div>
+                        <div class="panel-body">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Total Destination : <label id="lblDestination">0</label>
+
+                            <div style="float:right;">
+                                @*<p align="right">*@
+                                <button type="button" value="Clear" onclick="Clean(1)" class="btn btn-danger btn-xsm" title="Clear">
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                @*</p>*@
+                            </div>
+                            <br />
+                            <br />
+
+                            <table id="tblD" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                                <thead>
+                                    <tr class="alert-info">
+
+                                        <td>Province</td>
+                                        <td>Amphur</td>
+                                        <td>LatLon / Keyword</td>
+                                        <td>Aciton</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodydestination"></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div id="outputDiv"></div>
+
+</div>
+
+<div class="modal fade" id="myMap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%">
+        <div class="modal-content">
+
+         
+            <div class="modal-body">
+                <style>
+                    #map-canvas {
+                        height: 500px;
+                        width:100%;
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                </style>
+
+                <div id="map-canvas"></div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:85%">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color:#d9edf7">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" value="Add" id="AddEmail" data-dismiss="modal" onclick="addDistance();" />
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_ModalConfirm")
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+
+
+<script>
+
+    var modalPopup = $("#myModal");
+    var modalPopupTitle = $("#myModal div .modal-title")
+    var modalPopupBody = $("#myModal div .modal-body");
+    var modalPopupFooter = $("#myModal div .modal-footer");
+    var modalAction = "";
+
+
+    $(".modal-footer  button.btn-danger").click(function () {
+        modalPopupBody[0].innerHTML = "";
+        modalPopup.modal("hide");
+
+    });
+
+    $("#myModal").on('hidden.bs.modal', function (e) {
+        modalPopupBody[0].innerHTML = "";
+        modalPopup.modal("hide");
+    });
+
+    function importClick() {
+
+        $(".modal-dialog").width("50%");
+        modalAction = "Import";
+        modalPopupTitle[0].innerHTML = "Import Data";
+        modalPopupBody[0].innerHTML = "";
+        var Form = $("<div>");
+        Form.load("@Url.Action("ImportForm", "Distance")");
+        Form.appendTo(modalPopupBody[0]);
+
+        modalPopup.modal({
+            backdrop: 'static'
+        });
+
+
+    }
+
+
+
+
+    var modalMap = $("#myMap");
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+
+    function initialize(a, b, c, d) {
+
+        var myLatlngO = new google.maps.LatLng(a, b);
+        var myLatlngD = new google.maps.LatLng(c, d);
+
+
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var myLatlng = new google.maps.LatLng(14.466991, 100.545021);
+        var mapOptions = {
+            zoom: 7,
+            center: myLatlng
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        directionsDisplay.setMap(map);
+
+
+        var start = myLatlngO;
+        var end = myLatlngD;
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            }
+        });
+
+    }
+
+
+    function Map1(a, b,c,d) {
+
+        modalMap.modal({
+            backdrop: 'static'
+        }).on("show.bs.modal", function (e) {
+
+            $("#myMap button.btn-danger").text("Close");
+            google.maps.event.addDomListener(window, 'load', initialize(a, b, c, d));
+            google.maps.event.trigger(map, 'resize');
+        });
+
+        setTimeout(function () {
+            modalMap.modal();
+        }, 1000);
+
+    }
+
+    var countO = 0;
+    var countD = 0;
+
+    $(function () {
+
+
+        $('.selectpicker').selectpicker();
+
+        countO = $('#addOrigin tbody tr').length;
+        countD = $('#addDestination tbody tr').length;
+        $("#lblOrigin").html(countO);
+        $("#lblDestination").html(countD);
+        checkInput();
+
+        $('input[type=radio][name=rdo]').click(function () {
+            var related_class = $(this).val();
+            $('.' + related_class).prop('disabled', false);
+
+            $('input[type=radio][name=rdo]').not(':checked').each(function () {
+                var other_class = $(this).val();
+                $('.' + other_class).prop('disabled', true);
+                $("input[name='origin']").val("");
+            });
+        });
+
+        $('input[type=radio][name=rdo2]').click(function () {
+            var related_class = $(this).val();
+            $('.' + related_class).prop('disabled', false);
+
+            $('input[type=radio][name=rdo2]').not(':checked').each(function () {
+                var other_class = $(this).val();
+                $('.' + other_class).prop('disabled', true);
+                $("input[name='destination']").val("")
+            });
+
+        });
+
+
+            //document.getElementById('map_canvas').style.display = "block";
+            //initialize();
+
+    })
+
+    function addOrigin() {
+
+
+        var checkradio = $('input[type=radio][name=rdo]:checked').val()
+        var keyword = $("input[name='origin']").val();
+        //-----------------------------------------------------------------------
+        var latlonP = $("#dx-dropdown[name=ProvinceId]").val()
+        latlonP = latlonP.split('/');
+        latlonP = latlonP[1];
+        var nameP = $("#dx-dropdown[name=ProvinceId] option:selected").text().trim()
+        var latlonA = $("#dx-dropdown[name=AmphurId]").val()
+        latlonA = latlonA.split('/');
+        latlonA = latlonA[1];
+        var nameA = $("#dx-dropdown[name=AmphurId] option:selected").text().trim()
+        //-----------------------------------------------------------------------
+
+        if (checkradio == "radio1") {
+
+            if (keyword != "") {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(" - "));
+                $tr.append($("<td data-amphur>").append(" - "));
+                $tr.append($("<td data-origin>").append(keyword));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+                $("#txtorigin").val("");
+
+            } else {
+                alert("กรอกข้อมูล")
+            }
+
+        }
+
+        if (checkradio == "radio2") {
+
+            if (latlonP != null && latlonA == null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(nameP));
+                $tr.append($("<td data-amphur>").append(" - "));
+                $tr.append($("<td data-origin>").append(latlonP));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+            } else if (latlonP != null && latlonA != null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countO--;
+                    $('#lblOrigin').text(countO)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(nameP));
+                $tr.append($("<td data-amphur>").append(nameA));
+                $tr.append($("<td data-origin>").append(latlonA));
+                $tr.append($("<td>").append($button));
+                $("#tblO tbody").append($tr);
+                countO++;
+                $('#lblOrigin').text(countO)
+                checkInput()
+            } else {
+                alert("กรอกข้อมูล")
+            }
+            $("select[name='ProvinceId']").val("");
+            $("select[name='ProvinceId']").trigger("change");
+        }
+    }
+
+
+    function addDestination() {
+
+        var checkradio = $('input[type=radio][name=rdo2]:checked').val()
+        var keyword = $("input[name='destination']").val();
+        //-----------------------------------------------------------------------
+        var latlonP = $("#dx-dropdown[name=ProvinceId2]").val()
+        latlonP = latlonP.split('/');
+        latlonP = latlonP[1];
+        var nameP = $("#dx-dropdown[name=ProvinceId2] option:selected").text().trim()
+        //-----------------------------------------------------------------------
+        var latlonA = $("#dx-dropdown[name=AmphurId2]").val()
+        latlonA = latlonA.split('/');
+        latlonA = latlonA[1];
+        var nameA = $("#dx-dropdown[name=AmphurId2] option:selected").text().trim()
+
+
+        if (checkradio == "radio11") {
+            if (keyword!="") {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(" - "));
+                $tr.append($("<td data-amphur>").append(" - "));
+                $tr.append($("<td data-destination>").append(keyword));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+
+                $("#txtdestination").val("");
+
+            }else {
+                alert("กรอกข้อมูล")
+            }
+        }
+        if (checkradio == "radio22") {
+            if (latlonP != null && latlonA == null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(nameP));
+                $tr.append($("<td data-amphur>").append(" - "));
+                $tr.append($("<td data-destination>").append(latlonP));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+
+            } else if (latlonP != null && latlonA != null) {
+
+                var $tr = $("<tr>");
+                var $button = $("<button>");
+                $button.attr("type", "button");
+                $button.attr("class", "btn btn-xsm");
+                $button.attr("style", "background-color :#D43F3A;  color: white;");
+                $button.attr("id", "remove");
+                $button.click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    $this.parent().parent().remove();
+                    countD--;
+                    $('#lblDestination').text(countD)
+                    checkInput()
+                });
+                $button.append("<span class=\"glyphicon glyphicon-trash\"></span>");
+                $tr.append($("<td data-province>").append(nameP));
+                $tr.append($("<td data-amphur>").append(nameA));
+                $tr.append($("<td data-destination>").append(latlonA));
+                $tr.append($("<td>").append($button));
+                $("#tblD tbody").append($tr);
+                countD++;
+                $('#lblDestination').text(countD)
+                checkInput()
+            } else {
+                alert("กรอกข้อมูล")
+            }
+            $("select[name='ProvinceId2']").val("");
+            $("select[name='ProvinceId2']").trigger("change");
+        }
+
+     }
+
+
+    function Clean(id) {
+        if (id == 0) {
+            $("#tblO tbody tr").remove();
+            countO = 0;
+            $("#lblOrigin").html(countO);
+        }
+        if (id == 1) {
+            $("#tblD tbody tr").remove();
+            countD = 0;
+            $("#lblDestination").html(countD);
+        }
+        checkInput()
+
+    }
+
+    function checkInput() {
+        if (countD > 0 && countO > 0) {
+            $("button#btncal").prop('disabled', false);
+            $("button#btnexport").prop('disabled', false);
+
+        } else {
+            $("button#btncal").prop('disabled', true);
+            $("button#btnexport").prop('disabled', true);
+        }
+
+        if (countO > 4) {
+            $("button#btnaddO").prop('disabled', true);
+
+        } else {
+            $("button#btnaddO").prop('disabled', false);
+        }
+        if (countD > 4) {
+            $("button#btnaddD").prop('disabled', true);
+
+        } else {
+            $("button#btnaddD").prop('disabled', false);
+        }
+    }
+
+
+
+
+    var ori = [];
+    var des = [];
+    var orip = [];
+    var oria = [];
+    var desp = [];
+    var desa = [];
+
+    function pushData() {
+
+        ori = [];
+        des = [];
+        orip = [];
+        oria = [];
+        desp = [];
+        desa = [];
+
+        try {
+
+            var bodyAddO = $("#tblO tbody");
+            bodyAddO.find("tr").each(function (index, value) {
+
+                    ori.push($(value).find("td[data-origin]").html());
+                    orip.push($(value).find("td[data-province]").html());
+                    oria.push($(value).find("td[data-amphur]").html());
+
+            });
+
+            var bodyAddD = $("#tblD tbody");
+            bodyAddD.find("tr").each(function (index, value) {
+
+                    des.push($(value).find("td[data-destination]").html());
+                    desp.push($(value).find("td[data-province]").html());
+                    desa.push($(value).find("td[data-amphur]").html());
+            });
+
+
+            calculateDistances(ori, des)
+        }
+        catch (e) {
+            alert("ไม่สำเร็จ" + e)
+        }
+    }
+
+
+    var htmlstring = "";
+
+    function calculateDistances(ori, des) {
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+              origins: ori,
+              destinations: des,
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: false,
+              avoidTolls: false
+          }, callback);
+
+        htmlstring = "";
+
+    }
+
+    function callback(response, status) {
+
+
+        if (status != google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+        } else {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            for (var i = 0; i < origins.length; i++) {
+
+                var results = response.rows[i].elements;
+
+                if (orip[i] == " - " && oria[i] == " - ") {
+
+                    htmlstring += '<center><div class="table-responsive"><table border="1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default" style="width: 95%">'
+                              + '<tr class="success">'
+                               + '<th style="display:none;">' + ori[i] + '</th>'
+                              + '<th colspan="2" style="text-align:center">&nbsp;' + ori[i] + '</th>'
+                              + '<th colspan="3" style="text-align:center">&nbsp;' + origins[i] + '</th>'
+                              + '</tr>'
+                              + '<tr class="info">'
+                             + '<th style="width: 25px; text-align:center">No. </th>'
+                             + '<th style="width: 100px; text-align:center">Destination </th>'
+                             + '<th style="width: 200px; text-align:center">Destination </th>'
+                             + '<th style="width: 75px; text-align:center">Distance (km)</th>'
+                             + '<th style="width: 75px; text-align:center">Duration (hr)</th>'
+                             + '</tr>';
+
+
+                } else {
+                    htmlstring += '<center><div class="table-responsive"><table border="1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default" style="width: 95%">'
+                               + '<tr class="success">'
+                                + '<th style="display:none;">' + ori[i] + '</th>'
+                               + '<th colspan="2" style="text-align:center">&nbsp;' + checkNameP(orip[i]) + " " + checkNameA(oria[i]) + '</th>'
+                               + '<th colspan="3" style="text-align:center">&nbsp;' + origins[i] + '</th>'
+                               + '</tr>'
+                               + '<tr class="info">'
+                              + '<th style="width: 25px; text-align:center">No. </th>'
+                              + '<th style="width: 100px; text-align:center">Destination </th>'
+                              + '<th style="width: 200px; text-align:center">Destination </th>'
+                              + '<th style="width: 75px; text-align:center">Distance (km)</th>'
+                              + '<th style="width: 75px; text-align:center">Duration (hr)</th>'
+                              + '</tr>';
+
+                }
+
+                for (var j = 0 ; j < destinations.length ; j++) {
+
+
+                    if (desp[j] == " - " && desa[j] == " - ") {
+
+                            htmlstring += '<tr>'
+                                   + '<td style="display:none;">' + des[j] + '</th>'
+                                   + '<td>' + (j + 1) + '</td>'
+                                    + '<td>' + des[j] + '  ' + '<button class="btn btn-danger btn-xsm" onclick="Map1(' + getLatLong(ori[i], function (lat) { }) + ',' + getLatLong(des[j], function (lat) { }) + ')" type="button">Map</button></td>'
+                                   + '<td>' + destinations[j] + '</td>'
+                                   + '<td>' + results[j].distance.text + '</td>'
+                                   + '<td>' + results[j].duration.text + '</td>'
+                                   + '</tr>';
+
+
+
+                    } else {
+                        htmlstring += '<tr>'
+                               + '<td style="display:none;">' + des[j] + '</th>'
+                               + '<td>' + (j + 1) + '</td>'
+                                + '<td>' + checkNameP(desp[j]) + " " + checkNameA(desa[j]) + '  ' + '<button class="btn btn-danger btn-xsm" onclick="Map1(' + ori[i] + ',' + des[j] + ')" type="button">Map</button></td>'
+                               + '<td>' + destinations[j] + '</td>'
+                               + '<td>' + results[j].distance.text + '</td>'
+                               + '<td>' + results[j].duration.text + '</td>'
+                               + '</tr>';
+
+                    }
+
+
+
+
+                }
+            }
+
+
+
+                htmlstring += '</table></div></center>';
+
+                var outputDiv = document.getElementById('outputDiv');
+                outputDiv.innerHTML = htmlstring;
+
+
+
+
+        }
+    }
+
+    //function getLatLong(address) {
+
+    //    $.ajax({
+    //        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+    //        type: "POST",
+    //        success: function (res) {
+    //            console.log(res.results[0].geometry.location.lat);
+    //            console.log(res.results[0].geometry.location.lng);
+    //            return res.results[0].geometry.location.lat + ',' + res.results[0].geometry.location.lng
+
+    //        },
+    //        error: function () {
+    //            getLatLong(address);
+    //        }
+    //    });
+
+    //}
+
+    //function getLatLng(address, callback) {
+    //    var codedAddress;
+    //    var geocoder = new google.maps.Geocoder();
+    //    geocoder.geocode({ 'address': address }, function (results, status) {
+    //        if (status == google.maps.GeocoderStatus.OK) {
+    //            codedAddress = results[0].geometry.location;
+    //            console.log("codedAddress 1 = " + codedAddress);
+    //        } else {
+    //            alert("There was a problem with the map");
+    //        }
+    //        console.log("codedAddress 2 = " + codedAddress);
+
+    //        callback(codedAddress);
+    //    });
+    //}
+
+    function getLatLong(address, callback) {
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            address: address,
+            region: 'no'
+        },
+		    function (results, status) {
+		        if (status.toLowerCase() == 'ok') {
+		            // Get center
+		            var coords = new google.maps.LatLng(
+						results[0]['geometry']['location'].lat(),
+						results[0]['geometry']['location'].lng()
+					);
+		            callback(coords.lat() + ',' + coords.lng())
+
+		        }
+		    }
+		);
+
+
+    }
+
+    function checkNameP(name) {
+        if (name != " - ") {
+            return "จ." + name
+        } else {
+            return ""
+        }
+    }
+    function checkNameA(name) {
+        if (name != " - ") {
+            return "อ." + name
+        } else {
+            return ""
+        }
+    }
+
+
+   
+
+</script>
+
+
+
+
+
+
+
+        
+
+    

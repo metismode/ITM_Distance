@@ -1,0 +1,25 @@
+﻿@model Distance.MVC.Models.MasterDataModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form class="form-horizontal" id="forma">
+
+    <div id="edita">
+        @Html.Partial("FormAmphur")
+    </div>
+
+    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @hidden = "hidden" })
+
+    <input type="submit" id="submita" style="display:none;" value="Submit" />
+</form>
+
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/AmphurJS.js")"></script>
+
+<script>
+    $(function () {
+        $(".modal-dialog").width("50%");
+        $('.selectpicker').selectpicker();
+    });
+</script>

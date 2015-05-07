@@ -1,0 +1,25 @@
+﻿@model Distance.MVC.Models.EmployeeModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form class="form-horizontal" id="formemp">
+
+    <div id="editEmp">
+        @Html.Partial("FormEmployee")
+    </div>
+
+    @Html.TextBoxFor(m => m.id, new { @class = "form-control", @hidden = "hidden" })
+
+    <input type="submit" id="submitemp" style="display:none;" value="Submit" />
+</form>
+
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/EmployeeJS.js")"></script>
+
+<script>
+    $(function () {
+        $(".modal-dialog").width("50%");
+        $('.selectpicker').selectpicker();
+    });
+</script>

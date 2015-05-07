@@ -1,0 +1,265 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form id="form_upload" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+
+        <label class="control-label col-sm-2" for="textinput">File :</label>
+
+        <div class="col-md-7">
+            <input name='file' type='file' id="fileimport" />
+
+        </div>
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-info" value="Upload" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+
+        <label class="control-label col-sm-2" for="textinput">Origin :</label>
+
+        <div class="col-md-8">
+
+
+            <div class="table-responsive table-bordered" style="position: inherit; overflow-y: scroll; height: 200px;">
+                <table id="myTable1" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                    <thead id="addhead" style="font-weight: bold;">
+                        <tr class="alert-info tablesorter-headerRow">
+                            <td style="width: 30px"><input type="checkbox" id="addAllOri" title="Check All"></td>
+                            <td>Province</td>
+                            <td>Amphur</td>
+                            <td>Tambon</td>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="list"></tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div class="form-group">
+
+        <label class="control-label col-sm-2" for="textinput">Destination :</label>
+
+        <div class="col-md-8">
+
+            <div class="table-responsive table-bordered" style="position: inherit; overflow-y: scroll; height: 200px;">
+                <table id="myTable2" class="table table-bordered table-hover tablesorter text-center table-striped tablesorter-default">
+                    <thead id="addhead" style="font-weight: bold;">
+                        <tr class="alert-info tablesorter-headerRow">
+                            <td style="width: 30px"><input type="checkbox" id="addAllDes" title="Check All"></td>
+                            <td>Province</td>
+                            <td>Amphur</td>
+                            <td>Tambon</td>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="list2"></tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+</form>
+
+
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        $(function () {
+
+
+            $("#fileimport").fileinput({ 'showUpload': false, 'previewFileType': 'any', 'showPreview': false });
+
+            $('#form_upload').submit(function (e) {
+                e.preventDefault();
+
+                var fileInput = document.getElementById('fileimport');
+                if (fileInput.value != "") {
+
+                    var typesplit = fileInput.value.split('.');
+                    var type;
+                    $(typesplit).each(function (index, value) {
+                        type = value
+                    })
+                    if (type == "xlsx" || type == "xls") {
+
+                        var file = fileInput.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("ImportView", "Distance")',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+
+                                $.each(response.data, function (val, list) {
+
+                                    if (list.data0 != "" || list.data1 != "" || list.data2 != "") {
+
+                                        var $tr = $("<tr>");
+                                        $tr.append($("<td>").append('<div><label><input id="addcheck" type="checkbox" value="' + checkWordOri(list) + '" checked="checked"></label></div>'));
+                                        $tr.append($("<td  align=\"left\" >").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data0));
+                                        $tr.append($("<td  align=\"left\">").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data1));
+                                        $tr.append($("<td  align=\"left\">").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data2));
+
+                                        $("#list").append($tr);
+                                    }
+
+                                })
+
+                                $.each(response.data, function (val, list) {
+                                    var $tr = $("<tr>");
+                                    $tr.append($("<td>").append('<div><label><input id="addcheck2" type="checkbox" value="' + checkWordDes(list) + '" checked="checked"></label></div>'));
+                                    $tr.append($("<td  align=\"left\" >").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data3));
+                                    $tr.append($("<td  align=\"left\">").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data4));
+                                    $tr.append($("<td  align=\"left\">").append("&nbsp;&nbsp;&nbsp;&nbsp;" + list.data5));
+                                    $("#list2").append($tr);
+                                })
+                                checkboxall()
+                            },
+                            error: function (error) {
+
+                                ShowTextMessageAlertWarning(error)
+
+                            }
+                        });
+
+                    } else {
+                        // ShowTextMessageAlertWarning("Tpye file xls,xlsx only")
+                    }
+
+
+
+                } else {
+                    //  ShowTextMessageAlertWarning("No file.")
+                }
+
+                $('#fileimport').fileinput('clear');
+            });
+
+        })
+
+        function checkboxall() {
+            $("#addAllOri").click(function () {
+                $('#myTable1 input:checkbox').not(this).prop('checked', this.checked);
+            });
+            $("#addAllDes").click(function () {
+                $('#myTable2 input:checkbox').not(this).prop('checked', this.checked);
+            });
+
+
+        }
+
+
+
+
+        function addDistance() {
+
+            $("input#addcheck:checked").each(function (index, input) {
+
+
+                var $tr = $("<tr>");
+                $tr.append($("<td data-province style='text-align: center;'>").append(" - "));
+                $tr.append($("<td data-amphur style='text-align: center;'>").append(" - "));
+                $tr.append($("<td data-origin style='text-align: center;'>").append(input.value));
+                $tr.append($("<td style='text-align: center;'>").append("<button type='button' class='btn btn-danger btn-xsm' style='color: white; background-color: rgb(212, 63, 58);' id='remove' onclick='deleteRow(0)'><span class='glyphicon glyphicon-minus-sign' /></button>"));
+
+                $("#tbodyorigin").append($tr);
+               // input.value;
+
+
+            })
+
+            $("input#addcheck2:checked").each(function (index, input) {
+
+
+                var $tr = $("<tr>");
+                $tr.append($("<td data-province style='text-align: center;'>").append(" - "));
+                $tr.append($("<td data-amphur style='text-align: center;'>").append(" - "));
+                $tr.append($("<td data-destination style='text-align: center;'>").append(input.value));
+                $tr.append($("<td style='text-align: center;'>").append("<button type='button' class='btn btn-danger btn-xsm' style='color: white; background-color: rgb(212, 63, 58);' id='remove' onclick='deleteRow(1)'><span class='glyphicon glyphicon-minus-sign' /></button>"));
+
+
+                $("#tbodydestination").append($tr);
+
+
+            })
+
+            countO = $('#tblO tbody tr').length;
+            countD = $('#tblD tbody tr').length;
+            $("#lblOrigin").html(countO);
+            $("#lblDestination").html(countD);
+            checkInput();
+
+
+            modalPopupBody[0].innerHTML = "";
+            modalPopup.modal("hide");
+        }
+
+        function checkWordOri(list) {
+
+            var str = "";
+
+            if (list.data0 != "") {
+                str += "จ." + list.data0 + " ";
+            }
+            if (list.data1 != "") {
+                str += "อ." + list.data1 + " ";
+            }
+            if (list.data2 != "") {
+                str += "ต." + list.data2 + " ";
+            }
+
+            return str;
+        }
+        function checkWordDes(list) {
+
+            var str = "";
+
+            if (list.data3 != "") {
+                str += "จ." + list.data3 + " ";
+            }
+            if (list.data4 != "") {
+                str += "อ." + list.data4 + " ";
+            }
+            if (list.data5 != "") {
+                str += "ต." + list.data5 + " ";
+            }
+
+            return str;
+        }
+
+    </script>
+}
+

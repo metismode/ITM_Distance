@@ -1,0 +1,25 @@
+﻿@model Distance.MVC.Models.MasterDataModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form class="form-horizontal" id="formp">
+
+    @Html.Partial("FormProvince")
+
+    <input type="submit" id="submitp" style="display:none;" value="Submit" />
+</form>
+
+<script type="text/javascript" src="@Url.Content("/Scripts/JS/ProvinceJS.js")"></script>
+
+<script>
+
+    $(function () {
+
+       $(".modal-dialog").width("50%");
+       $('.selectpicker').selectpicker();
+
+    });
+</script>
+

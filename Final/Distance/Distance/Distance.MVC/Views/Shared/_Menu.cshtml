@@ -1,0 +1,28 @@
+﻿
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+
+                <li><a href="@Url.Action("Home", "Auth", null)"><i class="glyphicon glyphicon-home"></i><span>Home</span></a></li>
+
+                <li><a href="@Url.Action("Distance", "Distance", null)"><i class="glyphicon glyphicon-map-marker"></i><span>Distance</span></a></li>
+                
+
+                <li><a href="@Url.Action("List", "Employee", null)"><i class="glyphicon glyphicon-user"></i><span>Employee</span></a></li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-file"></i><span>Master</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="@Url.Action("ListProvince", "Master", null)"><i class="glyphicon glyphicon-file"></i> Province</a></li>
+                        <li><a href="@Url.Action("ListAmphur", "Master", null)"><i class="glyphicon glyphicon-file"></i> Amphur</a></li>
+                        @*<li><a href="@Url.Action("ListTambon", "Master", null)"><i class="glyphicon glyphicon-file"></i> Tambon</a></li>*@
+                    </ul>
+                </li>
+
+                @*<li><a href="#"><i class="glyphicon glyphicon-list"></i><span>Log</span></a></li>*@
+
+            </ul>
+        </div>
+    </div>
+</div>

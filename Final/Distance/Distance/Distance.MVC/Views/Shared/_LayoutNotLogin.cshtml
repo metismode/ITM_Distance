@@ -1,0 +1,30 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css")
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+</head>
+<body>
+
+    @Html.Partial("_HeadNotLogin")
+
+
+    @RenderBody()
+    <hr />
+    <footer>
+        <div class="hidden-xs text-muted h5"><center> Pineapple :: Copyright 2014 All Right Reserved.</center><br /></div>
+    </footer>
+
+
+
+    @Scripts.Render("~/script")
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>
